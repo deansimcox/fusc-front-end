@@ -1,0 +1,261 @@
+/*
+	The config and utilities of the app.
+	Vars, functions and mixins
+ */
+
+
+
+
+// =============================
+// 
+//		VARS
+//
+// =============================
+
+
+/*
+	Base font size in pixels
+ */
+$base-font-size: 15;
+
+
+/*
+	Default container gutter padding
+ */
+$container-gutter: 15;
+
+
+/*
+	Body font familiy
+ */
+$ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$ff-heading: Rockwell, Courier Bold, Georgia, serif; 
+
+
+/*
+	Default cubic-bezier
+ */
+$cb: cubic-bezier(.26,.85,.46,.99);
+
+
+/*
+	Colour map
+	- use the 'c' function to extract
+ */
+$colours: (
+	white: (
+		base: rgb(255,255,255)
+	),
+	black: (
+		base: rgb(0,0,0)
+	),
+	main1: (
+		base: #11467C,
+		dark: #093867,
+		x-dark: #062748
+	),
+	grey: (
+		base: rgb(51,51,51),
+		200: rgb(200,200,200),
+		230: rgb(230,230,230)
+	)
+);
+
+
+/*
+	Z-Index map
+	- use the 'z' function to extract
+ */
+$z-index: (
+	hidden: -1,
+	primaryNavClose: 10,
+	primaryNav: 100,
+	modal: 1000
+);
+
+
+
+
+// =============================
+// 
+//		FUNCTIONS
+//	
+// =============================
+
+
+/*	
+	Function to access colour palette from $colours var
+	Usage:	
+	.class {
+		color: c(red, dark);
+	}
+ */
+@function c($palette, $tone: 'base') {
+	@return map-get(map-get($colours, $palette), $tone);
+}
+
+
+/*
+	Function to access z-index from $z-index var
+	Usage:	
+	.class {
+		z-index: z(modal);
+	}
+ */
+@function z($target) {
+	@return map-get($z-index, $target);
+}
+
+
+/*
+	Use rem value with px fallback
+ */
+@function rem($px, $base: $base-font-size) {
+	@return ($px / $base) * 1rem;
+}
+
+
+/*
+	Helper function - used to return int value
+ */
+@function parseInt($n) {
+	@return $n / ($n * 0 + 1);
+}
+
+
+
+
+// =============================
+// 
+//		MIXINS
+// 
+// =============================
+
+
+/*
+	Mixin for adding media queries based on breakpoints
+	Usage:
+	.container {
+		@include bp(xs) {
+			// more code
+		}	
+	}
+ */
+@mixin bp($point) {
+	@if $point == lg {
+		@media screen and (min-width: 1200px) { @content ; }
+	}
+	@else if $point == md {
+		@media screen and (min-width: 992px) { @content ; }
+	}
+	@else if $point == sm-max {
+		@media screen and (max-width: 991px) { @content ; }
+	}
+	@else if $point == sm {
+		@media screen and (min-width: 768px)  { @content ; }
+	}
+	@else if $point == xs {
+		@media screen and (max-width: 767px)  { @content ; }
+	}
+	@else if $point == xxs {
+		@media screen and (max-width: 500px)  { @content ; }
+	}
+	@else if $point == xxxs {
+		@media screen and (max-width: 359px)  { @content ; }
+	}
+}
+
+
+/*
+	Mixin for adding font-family declarations
+	Usage:
+	.content {
+		@include ff(body);
+	}
+ */
+@mixin ff($family: 'body') {
+	@if $family == body {
+		font-family: $ff-body;
+	}
+	@else if $family == heading {
+		font-family: $ff-heading;
+	}
+}
+
+
+/*
+	Mixin to add css transition. Can use defaults or pass in custom values
+ */
+@mixin trans( $time: .3s, $property: all, $easing: $cb){
+	transition: $time $property $easing;
+}
+
+
+/*
+	Mixin to add css property with rem units, with a px fallback
+	Usage:
+	@include rem(margin, 10 20 5 40);
+	or
+	@include rem(font-size, 38);
+ */
+@mixin rem($property, $values) {
+	$px : ();
+	$rem: ();
+
+	@each $value in $values {
+
+		@if $value == 0 or $value == auto {
+			$px : append($px , $value);
+			$rem: append($rem, $value);
+		}
+
+		@else {
+			$unit: unit($value);
+			$val: parseInt($value);
+
+			$px : append($px, #{$val}px);
+			$rem: append($rem, #{$val / $base-font-size}em);
+		}
+	}
+
+	#{$property}: $px;
+	#{$property}: $rem;
+}
+
+
+/*
+	Clearfix mixin
+ */
+@mixin cf(){
+	&:before,
+	&:after {
+		content: ' ';
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+/*
+	Mixin to add container styles. Pass '0' to prevent the padding being added e.g.
+	@include container(0);
+ */
+@mixin container($padding: 15px){
+	margin-right: auto;
+	margin-left: auto;
+	@if $padding != 0 {
+		padding-left: $padding;
+		padding-right: $padding;		
+	}
+	@include bp(sm){
+		width: 750px;
+	}
+	@include bp(md){
+		width: 970px;
+	}
+	@include bp(lg){
+		width: 1170px;
+	}
+}

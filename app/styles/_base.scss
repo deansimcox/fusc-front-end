@@ -1,0 +1,489 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+::selection {
+	background: c(main1);
+	color: c(white);
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+html {
+	height: 100%;
+	// Sets base font size to a percantage which equates to 15px. Assumes browser default will be 16px.
+	font-size: #{ (100 / 16) * $base-font-size }%;
+	@include ff(body);
+	color: c(grey);
+	background: #fafafa;
+}
+body {
+	position: relative;
+	height: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+	overflow-scrolling: touch;
+
+	@include bp(xs){
+		&.primary-nav-open {
+			overflow: hidden;
+		}
+	}
+}
+
+ol {
+	padding-left: 21px;
+}
+
+ul {
+	list-style-type: disc;
+}
+
+a {
+	color: c(main1);
+	text-decoration: underline;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		color: c(main1);
+	}
+	img {
+		border: none;
+	}
+}
+
+// div,
+// nav {
+// 	&:focus {
+// 		outline: none;
+// 	}
+// }
+
+td,
+th {
+	border: 1px solid c(black);
+	padding: 12px 9px;
+}
+
+
+/*
+	Headings
+ */
+h1,
+.h1 {
+	@include rem(font-size, 38);
+	font-weight: 700;
+}
+
+h2,
+.h2 {
+	@include rem(font-size, 30);
+	font-weight: 700;
+}
+
+
+
+/*
+	Forms
+ */
+%text-input-styles {
+	border: 0px;
+	border-bottom: 2px solid c(main1);
+	//box-shadow: inset 0 1px 1px rgba(0,0,0,0.1), 0 0 2px transparent;
+	background: c(white);
+	padding: 7px 10px;
+	min-height: 36px;
+	@include trans;
+
+	&:focus {
+		outline: none;
+		//border-color: c(grey);
+		box-shadow: inset 0 1px 1px transparent, 0 0 3px rgba(0,0,0,0.3);
+	}
+}
+[type="text"] {
+	@extend %text-input-styles;
+}
+[type="search"] {
+	@extend %text-input-styles;
+}
+textarea {
+	@extend %text-input-styles;
+}
+select {
+	@extend %text-input-styles;
+}
+
+
+/*
+	btns
+ */
+.btn {
+	display: inline-block;
+	background: c(main1);
+	border: 1px solid c(main1);
+	color: white;
+	border-radius: 2px;
+	text-decoration: none;
+	font-size: 20px;
+	padding: 10px 20px;
+	@include trans;
+
+	&:hover,
+	&:focus {
+		color: c(white);
+		background: c(main1, dark);
+	}
+
+	&-lg {
+		font-size: 20px;
+		padding: 15px 40px;
+		@include bp(xs){
+			font-size: 20px;
+		}
+	}
+
+	&-theme {
+		&-1,
+		&-2,
+		&-3 {
+			color: c(white);
+			border-color: c(main1);
+			&:hover,
+			&:focus {
+				border-color: c(main1);
+				background: c(white);
+			}
+		}
+		&-1 {
+			&:hover,
+			&:focus {
+				color: c(white);
+				background-color: c(main1);
+			}
+			@include ff(heading);
+		}
+	}
+}
+
+
+/*
+	Common base styles
+ */
+
+.container {
+	@include cf;
+	@include container;
+
+	&.no-padding {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}
+
+.page-viewport {
+	height: 100%;
+	backface-visibility: hidden;
+	transform: translate3d(0,0,0);
+	overflow-x: hidden;
+	// @include trans(.6s);
+
+	@include bp(xs){
+		.primary-nav-open & {
+			overflow-x: visible;
+		}
+	}
+}
+
+.site-header {	
+	background: c(main1);
+	color: c(white);
+
+	&_main {
+		@include container(0);
+		@include rem(padding, $container-gutter);
+
+		@include bp(sm){
+			display: flex;
+			align-items: center;
+
+			&-left {
+				flex: 1;
+			}
+			&-right {
+				flex: 1;
+				text-align: right;
+			}
+
+			.no-flexbox & {
+				display: table;
+				&-left,
+				&-right {
+					display: table-cell;
+					vertical-align: middle;
+				}
+			}
+		}
+	}
+
+	&_logo {
+		display: inline-block;
+		vertical-align: middle;
+
+		&-link {
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+
+	&_search {
+		display: inline-flex;
+		vertical-align: top;
+		&-input {
+			border: 1px solid transparent;
+			border-top-left-radius: 2px;
+			border-bottom-left-radius: 2px;
+			@include trans;
+			&:focus {
+				box-shadow: 0 0 0 1px rgba(c(black),0.3), 0 0 15px rgba(c(white),0.3);
+			}
+		}
+		&-btn {
+			background: c(grey, 230);
+			padding: 0;
+			width: 42px;
+			@include rem(font-size, 18);
+			color: c(grey);
+			cursor: pointer;
+			border: 1px solid transparent;
+			border-left-color: c(grey,200);
+			border-top-right-radius: 2px;
+			border-bottom-right-radius: 2px;
+			@include trans;
+			&:focus {
+				outline: none;
+				background: c(grey,200);
+				box-shadow: 0 0 15px rgba(c(black),0.3);
+			}
+		}
+		.no-flexbox & {
+			display: inline-table;
+			&-input,
+			&-btn {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
+	}
+
+	&_menu-mob {
+		position: absolute;
+		margin: 0;
+		padding: 0;
+		@include rem(right, $container-gutter);
+		@include rem(top, 15);
+
+		&-search,
+		&-nav {
+			background: c(main1,dark);
+			border: 1px solid c(main1,x-dark);
+			border-radius: 3px;
+			color: c(white);
+			@include rem(font-size, 16);
+			@include rem(padding, 10 12);
+			cursor: pointer;
+		}
+		&-nav {
+			.primary-nav-open & {
+				position: relative;
+				z-index: z(primaryNav);
+			}
+		}
+	}
+
+	a {
+		color: c(white);
+	}
+
+	@include bp(sm){
+		&_main {
+			display: flex;
+			align-items: center;
+
+			&-left {
+				flex: 1;
+			}
+			&-right {
+				flex: 1;
+				text-align: right;
+			}
+		}
+
+		&_menu-mob {
+			display: none;
+		}
+	}
+
+	@include bp(xs){
+
+		&_search {
+			display: flex;
+			@include rem(padding, $container-gutter);
+
+			&-wrap {
+				@include rem(margin, $container-gutter (-$container-gutter) (-$container-gutter) );
+				background: c(main1,dark);
+				overflow: hidden;
+			}
+
+			&-input {
+				flex: 1;
+			}
+		}
+
+	}
+}
+
+.primary-nav {
+	background: c(main1, dark);
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	li {
+		padding: 0;
+		margin: 0;
+	}
+	li,
+	a {
+		display: inline-block;
+		vertical-align: top;
+	}
+	a {
+		text-decoration: none;
+		@include rem(padding, 12 $container-gutter);
+		@include trans;
+		&:hover,
+		&:focus {
+			background: c(main1, x-dark)
+		}
+	}
+
+	> ul {
+		@include container;
+	}
+
+	@include bp(xs){
+		position: absolute;
+		top: 0;
+		left: 100%;
+		height: 100%;
+		width: 70%;
+		z-index: z(primaryNav);
+		background: c(main1);
+		border-left: 1px solid c(main1,x-dark);
+		.primary-nav-open & {
+			box-shadow: 0 0 20px rgba(c(black),.5);
+		}
+		ul {
+			padding: 0;
+		}
+		li,
+		a {
+			display: block;
+		}
+		li {
+			+ li {
+				border-top: 1px solid rgba(c(white),.5);
+			}
+		}
+		a {
+			@include rem(padding, $container-gutter);
+		}
+	}
+}
+
+.nav-close-mob {
+	opacity: 0;
+	position: absolute;
+	z-index: z(hidden);
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(c(black), .5);
+	border: 0 solid transparent;
+	padding: 0;
+	cursor: default;
+	@include trans(.3s, opacity);
+
+	&:focus {
+		outline: none;
+	}
+
+	.no-opacity & {
+		background: transparent;
+	}
+
+	.primary-nav-open & {
+		opacity: 1;
+		z-index: z(primaryNavClose);
+		height: 200%;
+		cursor: pointer;
+	}
+}
+
+.skip-links {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	a {
+		position: fixed;
+		bottom: 100%;
+		background: c(white);
+		border: 1px solid c(grey);
+		border-top-width: 0;
+		color: c(main1);
+		border-radius: 0 0 3px 3px;
+		box-shadow: 0 0 20px -5px transparent;
+		margin-top: 0;
+		@include rem(left, 10);
+		@include rem(padding, 12 15);
+		@include trans;
+
+		&:focus {
+			@include rem(margin-top, 10);
+			box-shadow: 0 0 20px 0 c(black);
+			transform: translateY(100%)
+		}
+	}
+}
+
+
+
+
+
+
+/*
+	Helper classes
+ */
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}

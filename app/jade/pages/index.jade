@@ -1,0 +1,29 @@
+extends ../layouts/main.jade
+
+block headerIncludes
+
+block content
+	.container
+		h1 'Allo, 'Allo!
+		p You now have
+		ul
+			li HTML5 Boilerplate
+			li Sass
+			li Modernizr
+			li jQuery
+
+		+btn('test button', 'javascript:;')(class='dean')
+
+		+carousel('{ "speed": 1500, "autoStart": true }')
+			+carousel-slide('https://placeimg.com/960/480/nature')
+				p test 1
+			+carousel-slide('https://placeimg.com/960/480/people')
+				p test 2
+			+carousel-slide('https://placeimg.com/960/480/tech')
+				p test 3
+			+carousel-slide('https://placeimg.com/960/480/animals')
+				p test 4
+			+carousel-slide('https://placeimg.com/960/480/arch')
+				p test 4
+
+block footerIncludes

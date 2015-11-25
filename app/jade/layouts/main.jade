@@ -1,0 +1,74 @@
+include ../mixins/mixins.jade
+
+doctype html
+html.no-js(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		title prec front end foundation
+		meta(name='description', content='')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(rel='stylesheet', href='styles/vendor-concat.css')
+		link(rel='stylesheet', href='styles/main.css')
+		block headerIncludes
+		script(src='/bower_components/modernizr/modernizr.js')
+	body
+
+		.page-viewport
+
+			.skip-links
+				a(href="#primary-nav") Skip to navigation
+				a(href="#site-header_search") Skip to search
+
+			header.site-header
+				.site-header_main
+
+					menu.site-header_menu-mob
+						button.site-header_menu-mob-search
+							span.visuallyhidden Search
+							span.fa.fa-search
+						button.site-header_menu-mob-nav
+							span.visuallyhidden Navigation
+							span.fa.fa-bars
+
+					.site-header_main-left
+						a.site-header_logo-link(href='', title='UWA')
+							img.site-header_logo(src='images/site-logo-header.png', alt='Site Logo')
+
+					.site-header_main-right
+						.site-header_search-wrap
+							form.site-header_search#site-header_search
+								input.site-header_search-input(type="text")
+								button.site-header_search-btn
+									span.visuallyhidden Submit
+									span.fa.fa-search
+
+				nav.primary-nav#primary-nav
+					ul
+						li
+							a(href="") Home
+						li
+							a(href="") Work
+						li
+							a(href="") About
+						li
+							a(href="") Contact
+							
+				button.nav-close-mob
+					span.visuallyhidden Close navigation
+		
+			block content
+
+		// Google Analytics: change UA-XXXXX-X to be your site's ID.
+		script.
+			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+			e.src='https://www.google-analytics.com/analytics.js';
+			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+			ga('create','UA-XXXXX-X');ga('send','pageview');
+		script(src='scripts/vendor-concat.js')
+		script(src='scripts/polyfills-generated.js')
+		script(src='scripts/main.js')
+
+		block footerIncludes

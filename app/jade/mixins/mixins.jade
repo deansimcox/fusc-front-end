@@ -1,0 +1,15 @@
+
+//-	mixin for generic button
+mixin btn(title, url)
+	a(href=url, class="btn")&attributes(attributes)= title
+	
+
+mixin carousel(options)
+	div(data-class="carousel-container", data-carousel=options)&attributes(attributes)
+		if block
+			block
+
+mixin carousel-slide(imageURL)
+	div(class="carousel-slide", style="background-image: url(#{imageURL})")&attributes(attributes)
+		if block
+			block
