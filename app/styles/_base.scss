@@ -130,7 +130,7 @@ select {
 	display: inline-block;
 	background: c(main1);
 	border: 1px solid c(main1);
-	color: white;
+	color: c(grey);
 	border-radius: 2px;
 	text-decoration: none;
 	font-size: 20px;
@@ -140,6 +140,7 @@ select {
 	&:hover,
 	&:focus {
 		color: c(white);
+		border-color: c(main1, dark);
 		background: c(main1, dark);
 	}
 
@@ -205,6 +206,7 @@ select {
 
 .site-header {	
 	background: c(main1);
+	background: linear-gradient(to bottom, c(main1), c(main1,dark));
 	color: c(white);
 
 	&_main {
@@ -237,6 +239,7 @@ select {
 	&_logo {
 		display: inline-block;
 		vertical-align: middle;
+		width: 146px;
 
 		&-link {
 			display: inline-block;
@@ -248,20 +251,22 @@ select {
 		display: inline-flex;
 		vertical-align: top;
 		&-input {
-			border: 1px solid transparent;
+			border: 1px solid c(main1,x-dark);
+			border-right-width: 0;
 			border-top-left-radius: 2px;
 			border-bottom-left-radius: 2px;
 			@include trans;
 			&:focus {
-				box-shadow: 0 0 0 1px rgba(c(black),0.3), 0 0 15px rgba(c(white),0.3);
+				border-color: c(grey);
+				box-shadow: 0 0 10px c(white);
 			}
 		}
 		&-btn {
-			background: c(grey, 230);
+			background: c(grey);
 			padding: 0;
 			width: 42px;
 			@include rem(font-size, 18);
-			color: c(grey);
+			color: c(white);
 			cursor: pointer;
 			border: 1px solid transparent;
 			border-left-color: c(grey,200);
@@ -270,7 +275,7 @@ select {
 			@include trans;
 			&:focus {
 				outline: none;
-				background: c(grey,200);
+				background: c(black);
 				box-shadow: 0 0 15px rgba(c(black),0.3);
 			}
 		}
@@ -353,7 +358,7 @@ select {
 }
 
 .primary-nav {
-	background: c(main1, dark);
+	background: c(grey,30);
 	ul {
 		list-style: none;
 		padding: 0;
@@ -374,7 +379,7 @@ select {
 		@include trans;
 		&:hover,
 		&:focus {
-			background: c(main1, x-dark)
+			background: c(black)
 		}
 	}
 
@@ -408,6 +413,23 @@ select {
 		}
 		a {
 			@include rem(padding, $container-gutter);
+		}
+	}
+
+	@include bp(sm){
+		> ul {
+			display: flex;
+			align-items: stretch;
+			align-content: stretch;
+			justify-content: space-between;
+			> li {
+				display: flex;
+				align-items: stretch;
+				> a {					
+					display: flex;
+					align-items: center;
+				}
+			}
 		}
 	}
 }
