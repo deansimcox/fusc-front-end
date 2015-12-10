@@ -4,19 +4,49 @@ block headerIncludes
 
 block content
 	.container
-		h1 'Allo, 'Allo!
-		p You now have
+		p // HEADINGS //
+		h1 Heading 1
+		h2 Heading 2
+		h3 Heading 3
+		h4 Heading 4
+		h5 Heading 5
+		h6 Heading 6
+		hr
+			
+		p // LISTS //
 		ul
-			li HTML5 Boilerplate
-			li Sass
-			li Modernizr
-			li jQuery
+			li Unordered list item 1
+				ul
+					li Unordered sub list item 1
+					li Unordered sub list item 2
+					li Unordered sub list item 3
+			li
+				a(href="") Unordered list with link
+			li Unordered list item 3
+		ol
+			li Ordered list item 1
+				ol
+					li Ordered sub list item 1
+					li Ordered sub list item 2
+					li Ordered sub list item 3
+			li
+				a(href="") Ordered list with link
+			li Ordered list item 3
+		hr
 
-		+btn('test button', 'javascript:;')(class='dean')
+		p // BUTTONS //
+		p
+			+btn('Button with default theme', 'javascript:;')(class='other-class-name')
+		p
+			+btn-1('Button with alt theme', 'javascript:;')(class='other-class-name')
 
-		+carousel('{ "speed": 1500, "autoStart": true }')
+		hr
+		p // CAROUSELS //
+		+carousel('{ "speed": 1500, "auto": true, "autoControls": true, "autoControlsCombine": true, "autoStart": true }')
 			+carousel-slide('https://placeimg.com/960/480/nature')
-				p test 1
+				p Slide 1 title
+				p
+					+btn('Slide 1 CTA', 'javascript:;')
 			+carousel-slide('https://placeimg.com/960/480/people')
 				p test 2
 			+carousel-slide('https://placeimg.com/960/480/tech')
@@ -25,5 +55,55 @@ block content
 				p test 4
 			+carousel-slide('https://placeimg.com/960/480/arch')
 				p test 4
+
+		hr
+		p // MODALS //
+		p
+			+btn('Button with modal', 'javascript:;')(class='js-modal-open')
+
+		hr
+		p // FORM ELEMENTS //
+		form(action="")
+			div.form-row
+				label(for="text1", class="visuallyhidden") Text input label
+				input(type="text", placeholder="input type text", id="text1")
+			div.form-row
+				label(for="search1", class="visuallyhidden") Search input label
+				input(type="search", placeholder="input type search", id="search1")
+			div.form-row
+				label(for="textarea1", class="visuallyhidden") textarea label
+				textarea(name="", cols="30", rows="10", id="textarea1", placeholder="textarea placeholder")
+			div.form-row
+				label(for="select1", class="visuallyhidden") select label
+				select(name="", id="select1")
+					option(value="") option 1
+					option(value="") option 2
+					option(value="") option 3
+			div.form-row
+				label(for="select1", class="visuallyhidden") select label
+				button.btn Submit btn
+
+		hr
+		p // TABLES //
+		table
+			tbody
+				tr
+					th Table Heading
+					th Table Heading
+				tr
+					td table data
+					td table data
+				tr
+					td table data
+					td table data
+				tr
+					td table data
+					td table data
+				tr
+					td table data
+					td table data
+
+		hr
+		p // MODALS //
 
 block footerIncludes

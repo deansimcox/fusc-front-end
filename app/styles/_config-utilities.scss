@@ -1,13 +1,13 @@
 /*
 	The config and utilities of the app.
-	Vars, functions and mixins
+	Vars, functions, mixins and animation keyframes
  */
 
 
 
 
 // =============================
-// 
+//
 //		VARS
 //
 // =============================
@@ -29,7 +29,7 @@ $container-gutter: 15;
 	Body font familiy
  */
 $ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$ff-heading: Rockwell, Courier Bold, Georgia, serif; 
+$ff-heading: Rockwell, Courier Bold, Georgia, serif;
 
 
 /*
@@ -42,6 +42,7 @@ $cb: cubic-bezier(.26,.85,.46,.99);
 	Base font colours
  */
 $c-main1: #EED911;
+$c-main2: #DA5313;
 
 
 /*
@@ -59,6 +60,11 @@ $colours: (
 		base: $c-main1,
 		dark: darken($c-main1,7%),
 		x-dark: darken($c-main1,14%)
+	),
+	main2: (
+		base: $c-main2,
+		dark: darken($c-main2, 5),
+		x-dark: darken($c-main2, 10)
 	),
 	grey: (
 		30: rgb(30,30,30),
@@ -84,15 +90,15 @@ $z-index: (
 
 
 // =============================
-// 
+//
 //		FUNCTIONS
-//	
+//
 // =============================
 
 
-/*	
+/*
 	Function to access colour palette from $colours var
-	Usage:	
+	Usage:
 	.class {
 		color: c(red, dark);
 	}
@@ -104,7 +110,7 @@ $z-index: (
 
 /*
 	Function to access z-index from $z-index var
-	Usage:	
+	Usage:
 	.class {
 		z-index: z(modal);
 	}
@@ -133,9 +139,9 @@ $z-index: (
 
 
 // =============================
-// 
+//
 //		MIXINS
-// 
+//
 // =============================
 
 
@@ -145,7 +151,7 @@ $z-index: (
 	.container {
 		@include bp(xs) {
 			// more code
-		}	
+		}
 	}
  */
 @mixin bp($point) {
@@ -221,7 +227,7 @@ $z-index: (
 			$val: parseInt($value);
 
 			$px : append($px, #{$val}px);
-			$rem: append($rem, #{$val / $base-font-size}em);
+			$rem: append($rem, #{$val / $base-font-size}rem);
 		}
 	}
 
@@ -254,7 +260,7 @@ $z-index: (
 	margin-left: auto;
 	@if $padding != 0 {
 		padding-left: $padding;
-		padding-right: $padding;		
+		padding-right: $padding;
 	}
 	@include bp(sm){
 		width: 750px;
@@ -264,5 +270,21 @@ $z-index: (
 	}
 	@include bp(lg){
 		width: 1170px;
+	}
+}
+
+
+
+
+
+// =============================
+//
+//		ANIMATION KEYFRAMES
+//
+// =============================
+
+@keyframes animation-rotate {
+	100% {
+		transform: rotate(360deg);
 	}
 }

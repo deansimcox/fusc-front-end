@@ -1,6 +1,12 @@
+// font awesome vars and mixins
+@import '../bower_components/font-awesome/scss/_variables.scss';
+@import '../bower_components/font-awesome/scss/_mixins.scss';
+
+// app styles
 @import 'config-utilities';
 @import 'grids';
 @import 'carousels';
+@import 'modals';
 @import 'base';
 
 

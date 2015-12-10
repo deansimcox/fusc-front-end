@@ -6,6 +6,9 @@ import del from 'del';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
+const FAVICON_DATA_FILE = 'faviconData.json';
+const fs = require('fs');
+
 
 /*
 	These are third party dependencies from bower tp be copied or concatenated. Generally you would want to concat any js and css dependencies.
@@ -13,19 +16,18 @@ const reload = browserSync.reload;
 const dependencies = {
 	concat: {
 		js: [
-			'bower_components/jquery/dist/jquery.js', 
+			'bower_components/jquery/dist/jquery.js',
 			'bower_components/bxslider-4/dist/jquery.bxslider.js',
 			'bower_components/gsap/src/uncompressed/TweenMax.js',
-			'bower_components/enquire/dist/enquire.js'
+			'bower_components/enquire/dist/enquire.js',
+			'bower_components/vex/js/vex.js',
+			'bower_components/vex/js/vex.dialog.js'
 		],
 		css: [
 			'bower_components/font-awesome/css/font-awesome.css'
 		]
 	},
 	copy: {
-		js: [
-			'bower_components/modernizr/modernizr.js'
-		],
 		fonts: [
 			'bower_components/font-awesome/fonts/*'
 		]
@@ -127,7 +129,138 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['jade', 'styles', 'fonts', 'polyfill', 'concat:serve', 'copy:serve'], () => {
+gulp.task('concat:serve', function() {
+	// concat thrid party javscript dependencies
+	gulp.src(dependencies.concat.js)
+		.pipe($.concat('vendor-concat.js'))
+		.pipe(gulp.dest('.tmp/scripts'));
+
+	// concat thrid party CSS dependencies
+	gulp.src(dependencies.concat.css)
+		.pipe($.concat('vendor-concat.css'))
+		.pipe(gulp.dest('.tmp/styles'));
+
+	// concat generated polyfills to main.js
+	gulp.src(dependencies.concat.js)
+		.pipe($.concat('vendor-concat.js'))
+		.pipe(gulp.dest('.tmp/scripts'));
+});
+
+gulp.task('concat:dist', function() {
+	// concat thrid party javscript dependencies
+	gulp.src(dependencies.concat.js)
+		.pipe($.concat('vendor-concat.js'))
+		.pipe(gulp.dest('dist/scripts'));
+
+	// concat thrid party CSS dependencies
+	gulp.src(dependencies.concat.css)
+		.pipe($.concat('vendor-concat.css'))
+		.pipe(gulp.dest('dist/styles'));
+});
+
+gulp.task('copy:serve', function() {
+	// copy modernizr to .tmp
+	gulp.src(dependencies.copy.js)
+		.pipe(gulp.dest('.tmp/scripts'));
+
+	// copy font awesome fonts
+	gulp.src(dependencies.copy.fonts)
+		.pipe(gulp.dest('.tmp/fonts'));
+
+	// copy favicon stuff to root of .tmp
+	gulp.src('.tmp/favicon/*')
+		.pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('copy:dist', function() {
+	// copy modernizr to .tmp
+	// gulp.src(dependencies.copy.js)
+	// 	.pipe(gulp.dest('dist/scripts'));
+
+	// copy font awesome fonts
+	gulp.src(dependencies.copy.fonts)
+		.pipe(gulp.dest('dist/fonts'));
+
+	// copy custom scripts to dist
+	gulp.src(['app/scripts/*.js', '.tmp/scripts/modernizr.js'])
+		.pipe(gulp.dest('dist/scripts'));
+
+	// copy custom styles to dist
+	gulp.src('.tmp/styles/*.*!vendor-concat.css')
+		.pipe(gulp.dest('dist/styles'));
+
+	// copy favicon stuff to root of dist
+	gulp.src('.tmp/favicon/*')
+		.pipe(gulp.dest('dist'));
+});
+
+gulp.task('polyfill', function () {
+	var files = ['app/scripts/*.js'];
+	gulp.src(files)
+		.pipe($.expectFile({
+			checkRealFile: true,
+			verbose: true
+		}, files))
+		.pipe($.autopolyfiller('polyfills-generated.js', {
+			browsers: browsers
+		}))
+		.pipe(gulp.dest('app/scripts'));
+});
+
+gulp.task('favicon', function(done) {
+	// create icons
+	$.realFavicon.generateFavicon({
+		masterPicture: 'app/images/logo-fusc.svg',
+		dest: '.tmp/favicon',
+		iconsPath: '/',
+		design: {
+			ios: {
+				pictureAspect: 'backgroundAndMargin',
+				backgroundColor: '#ffffff',
+				margin: '14%',
+				appName: 'Forrestfield United Soccer Club'
+			},
+			desktopBrowser: {},
+			windows: {
+				pictureAspect: 'noChange',
+				backgroundColor: '#da532c',
+				onConflict: 'override',
+				appName: 'Forrestfield United Soccer Club'
+			},
+			androidChrome: {
+				pictureAspect: 'backgroundAndMargin',
+				margin: '13%',
+				backgroundColor: '#ffffff',
+				themeColor: '#eed911',
+				manifest: {
+					name: 'Forrestfield United Soccer Club',
+					display: 'standalone',
+					orientation: 'notSet',
+					onConflict: 'override'
+				}
+			},
+			safariPinnedTab: {
+				pictureAspect: 'blackAndWhite',
+				threshold: 90,
+				themeColor: '#eed911'
+			}
+		},
+		settings: {
+			compression: 2,
+			scalingAlgorithm: 'Mitchell',
+			errorOnImageTooSmall: false
+		},
+		markupFile: FAVICON_DATA_FILE
+	}, function() {
+		done();
+	});
+	// add markup to html pages in .tmp folder
+	gulp.src(['.tmp/*.html'])
+		.pipe($.realFavicon.injectFaviconMarkups(JSON.parse(fs.readFileSync(FAVICON_DATA_FILE)).favicon.html_code))
+		.pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('serve', ['jade', 'favicon', 'styles', 'fonts', 'polyfill', 'concat:serve', 'copy:serve'], () => {
 	browserSync({
 		notify: false,
 		port: 9000,
@@ -180,69 +313,7 @@ gulp.task('serve:test', () => {
 	gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
-gulp.task('polyfill', function () {
-	var files = ['app/scripts/*.js'];
-	gulp.src(files)
-		.pipe($.expectFile({
-			checkRealFile: true,
-			verbose: true
-		}, files))
-		.pipe($.autopolyfiller('polyfills-generated.js', {
-			browsers: browsers
-		}))
-		.pipe(gulp.dest('app/scripts'));
-});
-
-gulp.task('concat:serve', function() {
-	// concat thrid party javscript dependencies
-	gulp.src(dependencies.concat.js)
-		.pipe($.concat('vendor-concat.js'))
-		.pipe(gulp.dest('.tmp/scripts'));
-
-	// concat thrid party CSS dependencies
-	gulp.src(dependencies.concat.css)
-		.pipe($.concat('vendor-concat.css'))
-		.pipe(gulp.dest('.tmp/styles'));
-
-	// concat generated polyfills to main.js
-	gulp.src(dependencies.concat.js)
-		.pipe($.concat('vendor-concat.js'))
-		.pipe(gulp.dest('.tmp/scripts'));
-});
-
-gulp.task('concat:dist', function() {
-	// concat thrid party javscript dependencies
-	gulp.src(dependencies.concat.js)
-		.pipe($.concat('vendor-concat.js'))
-		.pipe(gulp.dest('dist/scripts'));
-
-	// concat thrid party CSS dependencies
-	gulp.src(dependencies.concat.css)
-		.pipe($.concat('vendor-concat.css'))
-		.pipe(gulp.dest('dist/styles'));
-});
-
-gulp.task('copy:serve', function() {
-	// copy modernizr to .tmp
-	gulp.src(dependencies.copy.js)
-		.pipe(gulp.dest('.tmp/scripts'));
-
-	// copy font awesome fonts
-	gulp.src(dependencies.copy.fonts)
-		.pipe(gulp.dest('.tmp/fonts'));
-});
-
-gulp.task('copy:dist', function() {
-	// copy modernizr to .tmp
-	gulp.src(dependencies.copy.js)
-		.pipe(gulp.dest('dist/scripts'));
-
-	// copy font awesome fonts
-	gulp.src(dependencies.copy.fonts)
-		.pipe(gulp.dest('dist/fonts'));
-});
-
-gulp.task('build', ['lint', 'html', 'polyfill', 'concat:dist', 'copy:dist', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'styles', 'polyfill', 'concat:dist', 'copy:dist', 'images', 'fonts', 'extras'], () => {
 	return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
