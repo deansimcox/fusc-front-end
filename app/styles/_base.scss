@@ -269,7 +269,8 @@ select {
 	&_logo {
 		display: inline-block;
 		vertical-align: middle;
-		width: 146px;
+		height: auto;
+		width: 126px;
 
 		&-link {
 			display: inline-block;
@@ -283,12 +284,12 @@ select {
 		&-input {
 			border: 1px solid c(main1,x-dark);
 			border-right-width: 0;
-			border-top-left-radius: 2px;
-			border-bottom-left-radius: 2px;
+			border-radius: 2px 0 0 2px;
+			box-shadow: 0 0 15px transparent;
 			@include trans;
 			&:focus {
 				border-color: c(grey);
-				box-shadow: 0 0 10px c(white);
+				box-shadow: 0 0 15px rgba(c(black),0.3);
 			}
 		}
 		&-btn {
@@ -305,8 +306,11 @@ select {
 			@include trans;
 			&:focus {
 				outline: none;
-				background: c(black);
 				box-shadow: 0 0 15px rgba(c(black),0.3);
+			}
+			&:focus,
+			&:hover {
+				background: c(black);
 			}
 		}
 		.no-flexbox & {
@@ -324,17 +328,26 @@ select {
 		margin: 0;
 		padding: 0;
 		@include rem(right, $container-gutter);
-		@include rem(top, 15);
+		@include rem(top, 35);
 
 		&-search,
 		&-nav {
-			background: c(main1,dark);
-			border: 1px solid c(main1,x-dark);
+			background: c(grey);
+			border: 1px solid c(grey,30);
 			border-radius: 3px;
 			color: c(white);
 			@include rem(font-size, 16);
 			@include rem(padding, 10 12);
 			cursor: pointer;
+			@include trans;
+			&:focus {
+				outline: none;
+				box-shadow: 0 0 15px rgba(c(black),0.3);
+			}
+			&:focus,
+			&:hover {
+				background: c(black);
+			}
 		}
 		&-nav {
 			.primary-nav-open & {
@@ -368,6 +381,10 @@ select {
 	}
 
 	@include bp(xs){
+
+		&_logo {
+			width: 80px;
+		}
 
 		&_search {
 			display: flex;
@@ -455,9 +472,13 @@ select {
 			> li {
 				display: flex;
 				align-items: stretch;
+				flex-grow: 1;
 				> a {
 					display: flex;
 					align-items: center;
+					flex-grow: 1;
+					text-align: center;
+					justify-content: center;
 				}
 			}
 		}

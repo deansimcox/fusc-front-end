@@ -129,7 +129,7 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('concat:serve', function() {
+gulp.task('concat:serve', ['serve-pre'], () => {
 	// concat thrid party javscript dependencies
 	gulp.src(dependencies.concat.js)
 		.pipe($.concat('vendor-concat.js'))
@@ -146,7 +146,7 @@ gulp.task('concat:serve', function() {
 		.pipe(gulp.dest('.tmp/scripts'));
 });
 
-gulp.task('concat:dist', function() {
+gulp.task('concat:dist', ['serve-pre'], () => {
 	// concat thrid party javscript dependencies
 	gulp.src(dependencies.concat.js)
 		.pipe($.concat('vendor-concat.js'))
@@ -158,10 +158,11 @@ gulp.task('concat:dist', function() {
 		.pipe(gulp.dest('dist/styles'));
 });
 
-gulp.task('copy:serve', function() {
+gulp.task('copy:serve', ['serve-pre'], () => {
 	// copy modernizr to .tmp
-	gulp.src(dependencies.copy.js)
-		.pipe(gulp.dest('.tmp/scripts'));
+	// gulp.src(dependencies.copy.js)
+	// 	.pipe($.debug())
+	// 	.pipe(gulp.dest('.tmp/scripts'));
 
 	// copy font awesome fonts
 	gulp.src(dependencies.copy.fonts)
@@ -172,7 +173,7 @@ gulp.task('copy:serve', function() {
 		.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('copy:dist', function() {
+gulp.task('copy:dist', ['serve-pre'], () => {
 	// copy modernizr to .tmp
 	// gulp.src(dependencies.copy.js)
 	// 	.pipe(gulp.dest('dist/scripts'));
@@ -207,7 +208,7 @@ gulp.task('polyfill', function () {
 		.pipe(gulp.dest('app/scripts'));
 });
 
-gulp.task('favicon', function(done) {
+gulp.task('favicon', ['jade'], (done) => {
 	// create icons
 	$.realFavicon.generateFavicon({
 		masterPicture: 'app/images/logo-fusc.svg',
@@ -260,7 +261,9 @@ gulp.task('favicon', function(done) {
 		.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('serve', ['jade', 'favicon', 'styles', 'fonts', 'polyfill', 'concat:serve', 'copy:serve'], () => {
+gulp.task('serve-pre', ['jade', 'favicon', 'styles', 'fonts', 'polyfill'], () => {
+});
+gulp.task('serve', ['serve-pre', 'concat:serve', 'copy:serve'], () => {
 	browserSync({
 		notify: false,
 		port: 9000,
