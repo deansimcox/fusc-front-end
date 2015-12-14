@@ -29,7 +29,8 @@ $container-gutter: 15;
 	Body font familiy
  */
 $ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$ff-heading: Rockwell, Courier Bold, Georgia, serif;
+$ff-heading: 'Patua One'Rockwell, Courier Bold, Georgia, serif;
+$ff-title: 'Squada One', cursive;
 
 
 /*
@@ -67,6 +68,8 @@ $colours: (
 		x-dark: darken($c-main2, 10)
 	),
 	grey: (
+		10: rgb(10,10,10),
+		20: rgb(20,20,20),
 		30: rgb(30,30,30),
 		base: rgb(51,51,51),
 		200: rgb(200,200,200),
@@ -192,6 +195,9 @@ $z-index: (
 	}
 	@else if $family == heading {
 		font-family: $ff-heading;
+	}
+	@else if $family == title {
+		font-family: $ff-title;
 	}
 }
 

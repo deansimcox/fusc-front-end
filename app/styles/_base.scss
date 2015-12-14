@@ -4,10 +4,10 @@
 	box-sizing: border-box;
 }
 
-::selection {
+/* ::selection {
 	background: c(main1);
 	color: c(white);
-}
+} */
 
 html,
 body {
@@ -60,13 +60,6 @@ a {
 	}
 }
 
-// div,
-// nav {
-// 	&:focus {
-// 		outline: none;
-// 	}
-// }
-
 table {
 	border-collapse: collapse;
 	width: 100%;
@@ -91,34 +84,40 @@ h1,
 .h1 {
 	@include rem(font-size, 38);
 	font-weight: 700;
+	@include ff(heading);
 }
 
 h2,
 .h2 {
 	@include rem(font-size, 30);
 	font-weight: 700;
+	@include ff(heading);
 }
 h3,
 .h3 {
    @include rem(font-size, 26);
    font-weight: 700;
+	@include ff(heading);
 }
 
 h4,
 .h4 {
    @include rem(font-size, 22);
    font-weight: 700;
+	@include ff(heading);
 }
 h5,
 .h5 {
    @include rem(font-size, 18);
    font-weight: 700;
+	@include ff(heading);
 }
 
 h6,
 .h6 {
    @include rem(font-size, 16);
    font-weight: 700;
+	@include ff(heading);
 }
 
 
@@ -243,15 +242,19 @@ select {
 		@include container(0);
 		@include rem(padding, $container-gutter);
 
+		&-left {
+			display: flex;
+			align-items: center;
+		}
+
 		@include bp(sm){
 			display: flex;
 			align-items: center;
 
 			&-left {
-				flex: 1;
+				flex: auto;
 			}
 			&-right {
-				flex: 1;
 				text-align: right;
 			}
 
@@ -262,6 +265,11 @@ select {
 					display: table-cell;
 					vertical-align: middle;
 				}
+			}
+		}
+		@include bp(xs){
+			&-left {
+				padding-right: 85px;
 			}
 		}
 	}
@@ -278,31 +286,47 @@ select {
 		}
 	}
 
+	&_title {
+		flex: auto;
+		margin: 0;
+		padding: 0 15px;
+		@include ff(title);
+		color: c(grey,30);
+		line-height: 1;
+		user-select: none;
+		@include rem(font-size, 50);
+
+		@include bp(xs){
+			@include rem(font-size, 25);
+		}
+	}
+
 	&_search {
 		display: inline-flex;
 		vertical-align: top;
+		height: 45px;
 		&-input {
-			border: 1px solid c(main1,x-dark);
+			border: 1px solid c(grey);
 			border-right-width: 0;
-			border-radius: 2px 0 0 2px;
+			border-radius: 20px 0 0 20px;
 			box-shadow: 0 0 15px transparent;
+			@include rem(padding-left, 15);
 			@include trans;
 			&:focus {
-				border-color: c(grey);
+				border-color: c(grey, 30);
 				box-shadow: 0 0 15px rgba(c(black),0.3);
 			}
 		}
 		&-btn {
 			background: c(grey);
 			padding: 0;
-			width: 42px;
+			width: 62px;
 			@include rem(font-size, 18);
 			color: c(white);
 			cursor: pointer;
 			border: 1px solid transparent;
 			border-left-color: c(grey,200);
-			border-top-right-radius: 2px;
-			border-bottom-right-radius: 2px;
+			border-radius: 0 20px 20px 0;
 			@include trans;
 			&:focus {
 				outline: none;
@@ -355,29 +379,14 @@ select {
 				z-index: z(primaryNav);
 			}
 		}
+		@include bp(sm){
+			display: none;
+		}
+
 	}
 
 	a {
 		color: c(white);
-	}
-
-	@include bp(sm){
-		&_main {
-			display: flex;
-			align-items: center;
-
-			&-left {
-				flex: 1;
-			}
-			&-right {
-				flex: 1;
-				text-align: right;
-			}
-		}
-
-		&_menu-mob {
-			display: none;
-		}
 	}
 
 	@include bp(xs){
@@ -406,6 +415,8 @@ select {
 
 .primary-nav {
 	background: c(grey,30);
+	box-shadow: 0 -3px 3px rgba(c(black), .2), 0 5px 5px rgba(c(black), .4);
+	border-top: 4px solid c(main1);
 	ul {
 		list-style: none;
 		padding: 0;
@@ -422,11 +433,11 @@ select {
 	}
 	a {
 		text-decoration: none;
-		@include rem(padding, 12 $container-gutter);
+		@include rem(padding, $container-gutter);
 		@include trans;
 		&:hover,
 		&:focus {
-			background: c(black)
+			background: c(grey, 10);
 		}
 	}
 
@@ -469,6 +480,7 @@ select {
 			align-items: stretch;
 			align-content: stretch;
 			justify-content: space-between;
+			padding: 0 0 4px;
 			> li {
 				display: flex;
 				align-items: stretch;
@@ -479,6 +491,16 @@ select {
 					flex-grow: 1;
 					text-align: center;
 					justify-content: center;
+					border-radius: 0 0 5px 5px;
+				}
+			}
+			> .active {
+				> a {
+					background: c(main1);
+					// background: linear-gradient(to bottom, c(main1, x-dark), c(main1));
+					box-shadow: 0 2px 4px c(black);
+					color: c(grey, 30);
+					font-weight: 700;
 				}
 			}
 		}
