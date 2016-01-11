@@ -1,0 +1,34 @@
+extends ../layouts/main.jade
+
+block headerIncludes
+
+block primaryNav
+	+navPrimary(3)
+
+block content
+	.container
+		h1.h1 Fixtures &amp; Results
+
+		.fixtures-list
+			each val in [1,2,3,4]
+				.fixtures-list_row
+					.col.col-when
+						span.col-when_date Sat 25 Jul 2015
+						span.col-when_time 23:10
+					.col.col-match
+						.col.col-team.-home
+							span.col-team_crest
+								img(src='images/logo-fusc.svg')
+							span.home-team Paris Saint-Germain
+						.col.col-scores
+							span.score.-home 1
+							span.separator -
+							span.score.-away 1
+						.col.col-team.-away
+							span.away-team Chelsea
+							span.col-team_crest
+								img(src='images/logo-fusc.svg')
+					.col.col-ctas
+						a(href='').cta Match Report
+
+block footerIncludes

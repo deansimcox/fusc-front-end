@@ -2,6 +2,9 @@ extends ../layouts/main.jade
 
 block headerIncludes
 
+block primaryNav
+	+navPrimary(0)
+
 block content
 	.container
 
@@ -18,5 +21,19 @@ block content
 				p test 4
 			+carousel-slide('https://placeimg.com/960/480/arch')
 				p test 4
+		
+		.pod-row
+			.pod
+				p.pod_title Previous Match
+				.pod_body
+					p body text
+			.pod
+				p.pod_title Next Match
+				.pod_body
+					p body text
+			.pod
+				p.pod_title League Table
+				.pod_body
+					p body text
 
 block footerIncludes

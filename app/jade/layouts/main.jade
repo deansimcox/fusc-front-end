@@ -16,68 +16,11 @@ html.no-js(lang='en')
 
 		.page-viewport
 
-			.skip-links
-				a(href="#primary-nav") Skip to navigation
-				a(href="#site-header_search") Skip to search
-
-			header.site-header
-				.site-header_main
-
-					menu.site-header_menu-mob
-						button.site-header_menu-mob-search
-							span.visuallyhidden Search
-							span.fa.fa-search
-						button.site-header_menu-mob-nav
-							span.visuallyhidden Navigation
-							span.fa.fa-bars
-
-					.site-header_main-left
-						a.site-header_logo-link(href='', title='UWA')
-							img.site-header_logo(src='images/logo-fusc.svg', alt='Site Logo', height="146", width="141")
-						p.site-header_title Forrestfield United Soccer Club
-
-					.site-header_main-right
-						.site-header_search-wrap
-							form.site-header_search#site-header_search
-								input.site-header_search-input(type="text", placeholder="Search this site")
-								button.site-header_search-btn
-									span.visuallyhidden Submit
-									span.fa.fa-search
-
-				nav.primary-nav#primary-nav
-					ul
-						li
-							a(href="") 
-								span.link-wrap Home
-						li.active
-							a(href="")
-								span.link-wrap Club info
-						li
-							a(href="") 
-								span.link-wrap News
-						li
-							a(href="") 
-								span.link-wrap Fixture &amp; Results
-						li
-							a(href="") 
-								span.link-wrap Noticeboard
-						li
-							a(href="") 
-								span.link-wrap Teams
-						li
-							a(href="") 
-								span.link-wrap Sponsors
-						li
-							a(href="") 
-								span.link-wrap Merchandise
-						li
-							a(href="") 
-								span.link-wrap News
-							
-				button.nav-close-mob
-					span.visuallyhidden Close navigation
+			include ../includes/header.jade
 		
 			block content
+
+			include ../includes/footer.jade
 
 		// Google Analytics: change UA-XXXXX-X to be your site's ID.
 		script.

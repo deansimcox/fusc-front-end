@@ -1,0 +1,21 @@
+extends ../layouts/main.jade
+
+block headerIncludes
+
+block primaryNav
+	+navPrimary(2)
+
+block content
+	.container
+		h1.h1 Latest News
+
+		.news-list
+			each val in [1,2,3,4]
+				a.news-item(href="javascript:;",data-val="#{val}")
+					.news-item_img-container
+						.news-item_img(style="background-image: url(http://loremflickr.com/320/220/soccer?random=#{val});")
+					.news-item_content
+						.news-item_title Article #{val}
+						.news-item_body Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis vitae nam provident aliquid expedita officia nulla ipsum libero, ratione itaque incidunt, iure ullam distinctio necessitatibus, temporibus maiores sit quidem eligendi!
+
+block footerIncludes

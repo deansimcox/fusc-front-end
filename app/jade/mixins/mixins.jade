@@ -22,3 +22,49 @@ mixin carousel-slide(imageURL)
 		if block
 			div(class="carousel-slide-caption")
 				block
+
+//- variable for page names and file names
+-
+	pages = [
+		{
+			name: 'Home',
+			url: '/'
+		},
+		{
+			name: 'Club Info',
+			url: 'club-info.html'
+		},
+		{
+			name: 'News',
+			url: 'news.html'
+		},
+		{
+			name: 'Fixture & Results',
+			url: 'fixtures-results.html'
+		},
+		{
+			name: 'Noticeboard',
+			url: 'noticeboard.html'
+		},
+		{
+			name: 'Teams',
+			url: 'teams.html'
+		},
+		{
+			name: 'Sponsors',
+			url: 'sponsors.html'
+		},
+		{
+			name: 'Merchandise',
+			url: 'merchandise.html'
+		}
+	]
+
+//- mixin for primary navigation with paramater for active class
+mixin navPrimary(active)
+	nav.primary-nav#primary-nav
+		ul
+			each val, index in pages
+				li(class=(active === index ? 'active' : ''))
+					a(href="#{val.url}")
+						span.link-wrap #{val.name}

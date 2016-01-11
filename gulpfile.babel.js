@@ -261,7 +261,7 @@ gulp.task('favicon', ['jade'], (done) => {
 		.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('serve-pre', ['jade', 'favicon', 'styles', 'fonts', 'polyfill'], () => {
+gulp.task('serve-pre', ['jade', /*'favicon',*/ 'styles', 'fonts', 'polyfill'], () => {
 });
 gulp.task('serve', ['serve-pre', 'concat:serve', 'copy:serve'], () => {
 	browserSync({
