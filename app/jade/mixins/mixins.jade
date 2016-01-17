@@ -28,7 +28,7 @@ mixin carousel-slide(imageURL)
 	pages = [
 		{
 			name: 'Home',
-			url: '/'
+			url: 'index.html'
 		},
 		{
 			name: 'Club Info',
@@ -68,3 +68,42 @@ mixin navPrimary(active)
 				li(class=(active === index ? 'active' : ''))
 					a(href="#{val.url}")
 						span.link-wrap #{val.name}
+
+mixin resultRow(date, time, homeLogo, homeName, homeScore, awayScore, awayName, awayLogo, ctaLink)
+	.fixtures-list_row
+		.col.col-when
+			span.col-when_date #{date}
+			span.col-when_time #{time}
+		.col.col-match
+			.col.col-team.-home
+				span.col-team_crest
+					img(src='images/logo/#{homeLogo}')
+				span.home-team #{homeName}
+			.col.col-scores
+				span.score.-home #{homeScore}
+				span.separator -
+				span.score.-away #{awayScore}
+			.col.col-team.-away
+				span.away-team #{awayName}
+				span.col-team_crest
+					img(src='images/logo/#{awayLogo}')
+		.col.col-ctas
+			a(href='#{ctaLink}').cta Match Report
+
+mixin fixtureRow(date, time, homeLogo, homeName, awayName, awayLogo, ctaLink)
+	.fixtures-list_row
+		.col.col-when
+			span.col-when_date #{date}
+			span.col-when_time #{time}
+		.col.col-match
+			.col.col-team.-home
+				span.col-team_crest
+					img(src='images/logo/#{homeLogo}')
+				span.home-team #{homeName}
+			.col.col-versus Vs
+			.col.col-team.-away
+				span.away-team #{awayName}
+				span.col-team_crest
+					img(src='images/logo/#{awayLogo}')
+		.col.col-ctas
+			a(href='#{ctaLink}').cta Match Report

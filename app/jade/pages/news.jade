@@ -13,9 +13,11 @@ block content
 			each val in [1,2,3,4]
 				a.news-item(href="javascript:;",data-val="#{val}")
 					.news-item_img-container
-						.news-item_img(style="background-image: url(http://loremflickr.com/320/220/soccer?random=#{val});")
+						.news-item_img(style="background-image: url(http://loremflickr.com/660/450/soccer?random=#{val});")
 					.news-item_content
-						.news-item_title Article #{val}
-						.news-item_body Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis vitae nam provident aliquid expedita officia nulla ipsum libero, ratione itaque incidunt, iure ullam distinctio necessitatibus, temporibus maiores sit quidem eligendi!
+						p.news-item_title Article #{val}
+						p.news-item_date 17/01/2016
+						.news-item_body 
+							p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis vitae nam provident aliquid expedita officia nulla ipsum libero, ratione itaque incidunt, iure ullam distinctio necessitatibus, temporibus maiores sit quidem eligendi!
 
 block footerIncludes

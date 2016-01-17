@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
+import ftp from 'vinyl-ftp';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -187,7 +188,7 @@ gulp.task('copy:dist', ['serve-pre'], () => {
 		.pipe(gulp.dest('dist/scripts'));
 
 	// copy custom styles to dist
-	gulp.src('.tmp/styles/*.*!vendor-concat.css')
+	gulp.src(['.tmp/styles/*.*', '!.tmp/styles/vendor-concat.css'])
 		.pipe(gulp.dest('dist/styles'));
 
 	// copy favicon stuff to root of dist
@@ -261,8 +262,36 @@ gulp.task('favicon', ['jade'], (done) => {
 		.pipe(gulp.dest('.tmp'));
 });
 
+gulp.task('deploy', ['build'], () => {
+	// var conn = ftp.create({
+	// 	host: 'ftp.simcox.me',
+	// 	user: 'asecondm',
+	// 	password: 'Simmos90',
+	// 	parallel: 10,
+	// 	log: $.gulpUtil.log
+	// });
+	var conn = ftp.create( JSON.parse( fs.readFileSync('ftp.json') ) );
+
+	var files = [
+		'dist/**'
+	];
+
+	// using base = '.' will transfer everything to /public_html correctly
+	// turn off buffering in gulp.src for best performance
+
+	return gulp.src( files, { base: 'dist', buffer: false } )
+		.pipe($.expectFile({
+			checkRealFile: true,
+			verbose: true
+		}, files))
+		.pipe( conn.newer('/public_html/fusc-templates') ) // only upload newer files
+		.pipe( conn.dest('/public_html/fusc-templates') );
+
+} );
+
 gulp.task('serve-pre', ['jade', /*'favicon',*/ 'styles', 'fonts', 'polyfill'], () => {
 });
+
 gulp.task('serve', ['serve-pre', 'concat:serve', 'copy:serve'], () => {
 	browserSync({
 		notify: false,

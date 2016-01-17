@@ -1,0 +1,43 @@
+extends ../layouts/main.jade
+
+block headerIncludes
+
+block primaryNav
+	+navPrimary(1)
+
+block content
+	.container
+		h1.h1 Club Info
+
+		p.h3 Location
+		p 
+			strong Address: 
+			| Hartfield Park Reserve, 199 Hale Road, Forrestfield WA 6058
+
+		p.map-embed
+			iframe(src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d432709.4526105783!2d116.190398!3d-32.081618!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf04f0b618f1d790!2sHartfield+Park+Reserve!5e0!3m2!1sen!2sau!4v1453035613269', width='800', height='600', frameborder='0', style='border:0', allowfullscreen='')
+		
+		p 
+			strong Phone:
+			| (08) 9453 6211
+
+
+		p.h3 Facilities
+		p 
+			strong Clubroom
+			| – We have a large open-spaced room with a large projector TV, often televising sporting events for patrons. The facilities are also available for hire and are ideal for meetings, parties and fundraisers. For booking information, please use our contact form, selecting “Facility Hire”.
+
+		p 
+			strong Bar
+			| - At the Forrestfield club house, we have a fully dedicated bar providing a multitude of drinks, served by our beautiful and friendly bar staff.
+
+		p 
+			Please note : Forrestfield promote responsible consumption of alcohol and drinks are only permitted within the designated areas of the bar and terrace.
+
+		p 
+			strong Canteen
+			| – The canteen provides a wide array of snacks, meals and beverages to fully satisfy all tastes, including the famous award winning “Forrie burger” and chips and gravy (claims of awards may be stretching the truth, but it is a damn good burger!).
+
+
+
+block footerIncludes
