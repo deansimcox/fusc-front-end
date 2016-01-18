@@ -194,6 +194,10 @@ gulp.task('copy:dist', ['serve-pre'], () => {
 	// copy favicon stuff to root of dist
 	gulp.src('.tmp/favicon/*')
 		.pipe(gulp.dest('dist'));
+
+	// copy favicon stuff to root of dist
+	gulp.src('app/content/**.*')
+		.pipe(gulp.dest('dist/content'));
 });
 
 gulp.task('polyfill', function () {

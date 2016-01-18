@@ -10,14 +10,15 @@ block content
 		h1.h1 Latest News
 
 		.news-list
-			each val in [1,2,3,4]
-				a.news-item(href="javascript:;",data-val="#{val}")
-					.news-item_img-container
-						.news-item_img(style="background-image: url(http://loremflickr.com/660/450/soccer?random=#{val});")
-					.news-item_content
-						p.news-item_title Article #{val}
-						p.news-item_date 17/01/2016
-						.news-item_body 
-							p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis vitae nam provident aliquid expedita officia nulla ipsum libero, ratione itaque incidunt, iure ullam distinctio necessitatibus, temporibus maiores sit quidem eligendi!
+			//- +newsListItem(title, date, image, url)
+			//- 	p body
+			+newsListItem('Forrestfield United win Division Two title', '18/01/2016', 'content/news-item-1.jpg', 'news-item-1.html')
+				p Forrestfield United have won their first All Flags State League Division Two title after a 1-0 win against a ten-man Rockingham City at Lark Hill Sportsplex on Saturday.
+			+newsListItem('Forrestfield begin preparation for next season', '18/01/2016', 'content/news-item-2.jpg', 'news-item-2.html')
+				p The 2015 All Flags Division Two Champions Forrestfield United have begun their preparation for next season by signing two youngsters from NPL side Inglewood United.
+			+newsListItem('2016 Night Series fixtures', '18/01/2016', 'content/news-item-3.jpg', 'news-item-3.html')
+				p Forrestfield United will kick off their night series on Friday 5 February 2016 against Western Knights, 8.30pm at Hartfield Park.
+			+newsListItem('Forrestfield United Masters', '18/01/2016', 'content/news-item-4.jpg', 'news-item-4.html')
+				p FUSC Masters Premier League and SDV3 squads will commence training on Thursday 11/2/16 7pm at Hartfield Park.
 
 block footerIncludes

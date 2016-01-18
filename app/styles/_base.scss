@@ -235,8 +235,10 @@ select {
 }
 
 .site-header {
-	background: c(main1);
-	background: linear-gradient(to bottom, c(main1), c(main1,dark));
+	background: url('../images/pattern-pentagon.png') 50% 0 repeat c(main1);
+	background-size: 300px 300px;
+	// background: c(main1);
+	// background: linear-gradient(to bottom, c(main1), c(main1,dark));
 	color: c(white);
 
 	&_main {
@@ -763,10 +765,9 @@ select {
 .news-item {
 	margin: -1px 0;
 	padding: 10px;
-	background: c(grey, 240);
+	background: repeat 0 0 c(grey, 240);
+	background-size: 300px 300px;
 	border: 1px solid transparent;
-	border-top-color: c(grey, 200);
-	border-bottom-color: c(grey, 200);
 	color: c(grey);
 	text-decoration: none;
 	cursor: pointer;
@@ -774,18 +775,41 @@ select {
 	position: relative;
 	@include trans;
 
+	&:before,
+	&:after {
+		content: ' ';
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(to right, transparent 0%, c(grey, 200) 10%, c(grey, 200) 90%, transparent 100%);
+	}
+	&:before {
+		top: -1px;
+	}
+	&:after {
+		bottom: -1px;
+	}
+
 	&:nth-child(2n+1) {
-		background: c(grey, 245);
+		background-color: c(grey, 245);
 	}
 
 	&:hover,
 	&:focus {
-		background: c(main1);
+		background-color: c(main1);
+		background-image: url('../images/pattern-pentagon.png');
+		background-position: 15px 15px;
 		color: c(grey, 30);
 		box-shadow: 0 0 4px 0px rgba(c(black), 0.3);
 		border-color: c(main1, dark);
 		position: relative;
 		z-index: 5;
+		&:before,
+		&:after {
+			display: none;
+		}
 		.news-item_img-container {
 			&:after {
 				box-shadow: inset 0 0 0 10px rgba(c(black), 0.25);
@@ -793,6 +817,9 @@ select {
 		}
 		.news-item_img {
 			transform: scale(1.05);
+		}
+		.news-item_date {
+			color: c(grey);
 		}
 	}
 
@@ -844,7 +871,7 @@ select {
 
 		&_content {
 			flex: 1;
-			padding: 0 0 0 15px;
+			padding: 0 0 0 20px;
 		}
 	}
 
@@ -1070,6 +1097,51 @@ select {
 		height: 100%;
 	}
 }
+
+
+
+/*
+	Article page
+ */
+ .article {
+ 	padding-top: 20px;
+	@include rem(font-size, 17);
+	line-height: 1.4;
+
+
+ 	&_title {
+		@include rem(font-size, 38);
+		font-weight: 700;
+		@include ff(heading);
+		margin: 25px 0 5px;
+ 	}
+ 	&_date {
+		@include rem(font-size, 18);
+		font-weight: 700;
+		margin: 5px 0 20px;
+ 	}
+ 	&_img {
+ 		padding: 20px 0;
+ 		background: url('../images/pattern-sqaures@2x.png') repeat 50% 0 c(grey, 230);
+ 		background-size: 397px 322px;
+ 		border: 1px solid rgba(c(black), .2);
+ 		border-left-width: 0;
+ 		border-right-width: 0;
+ 		box-shadow: inset 0 30px 30px -30px rgba(c(black), .15),  inset 0 -30px 30px -30px rgba(c(black), .15);
+
+ 		&-caption {
+ 			margin: 10px 0 0;
+ 		}
+
+ 		img {
+ 			width: 100%;
+ 			height: auto;
+ 		}
+ 	}
+ 	&_author {
+ 		font-weight: 700;
+ 	}
+ }
 
 
 /*

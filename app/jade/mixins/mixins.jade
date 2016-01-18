@@ -107,3 +107,14 @@ mixin fixtureRow(date, time, homeLogo, homeName, awayName, awayLogo, ctaLink)
 					img(src='images/logo/#{awayLogo}')
 		.col.col-ctas
 			a(href='#{ctaLink}').cta Match Report
+
+mixin newsListItem(title, date, image, url)
+	a.news-item(href="#{url}")
+		.news-item_img-container
+			.news-item_img(style="background-image: url(#{image});")
+		.news-item_content
+			p.news-item_title #{title}
+			p.news-item_date #{date}
+			.news-item_body 
+				if block
+					block
