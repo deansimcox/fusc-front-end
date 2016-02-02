@@ -8,32 +8,88 @@ block primaryNav
 block content
 	.container
 
-		+carousel('{ "speed": 800, "pause": 6000, "mode": "fade", "auto": true, "autoControls": true, "autoControlsCombine": true, "autoStart": true, "autoHover": true }')
-			+carousel-slide('https://placeimg.com/960/480/nature')
-				p Slide 1 title
+		+carousel('{ "speed": 800, "pause": 6000, "mode": "horizontal", "auto": true, "autoControls": true, "autoControlsCombine": true, "autoStart": true, "autoHover": true }')
+			+carousel-slide('content/news-item-1.jpg')
+				p.carousel-slide-caption-title Forrestfield United win Division Two title
 				p
-					+btn('Slide 1 CTA', 'javascript:;')
-			+carousel-slide('https://placeimg.com/960/480/people')
-				p test 2
-			+carousel-slide('https://placeimg.com/960/480/tech')
-				p test 3
-			+carousel-slide('https://placeimg.com/960/480/animals')
-				p test 4
-			+carousel-slide('https://placeimg.com/960/480/arch')
-				p test 4
+					+btn('Match report', 'news-item-1.html')(class="-block")
+			+carousel-slide('content/news-item-2.jpg')
+				p.carousel-slide-caption-title Forrestfield begin preparation for next season
+				p
+					+btn('Read article', 'news-item-2.html')(class="-block")
+			+carousel-slide('content/news-item-3.jpg')
+				p.carousel-slide-caption-title 2016 Night Series fixtures
+				p
+					+btn('Read article', 'news-item-3.html')(class="-block")
+			+carousel-slide('content/news-item-4.jpg')
+				p.carousel-slide-caption-title Forrestfield United Masters
+				p
+					+btn('Read article', 'news-item-4.html')(class="-block")
 		
 		.pod-row
 			.pod
 				p.pod_title Previous Match
 				.pod_body
-					p body text
+					.pod_body-inner
+						.fixture-small
+							.fixture-small_home
+								.fixture-small_home-crest
+									img(src="images/logo/fusc.svg", alt="")
+								p.fixture-small_home-name Forrestfield United
+							.fixture-small_center 6-1
+							.fixture-small_away
+								.fixture-small_away-crest
+									img(src="images/logo/gcfc.png", alt="")
+								p.fixture-small_away-name Gosnells City
+						p
+							+btn("Match report")(class="-block")
+
 			.pod
 				p.pod_title Next Match
 				.pod_body
-					p body text
+					.pod_body-inner
+						.fixture-small
+							.fixture-small_home
+								.fixture-small_home-crest
+									img(src="images/logo/ashfield.png", alt="")
+								p.fixture-small_home-name Ashfield
+							.fixture-small_center VS
+							.fixture-small_away
+								.fixture-small_away-crest
+									img(src="images/logo/fusc.svg", alt="")
+								p.fixture-small_away-name Forrestfield United
+						p
+							+btn("Match preview")(class="-block")
+
 			.pod
 				p.pod_title League Table
 				.pod_body
-					p body text
+					.pod_body-inner
+						table
+							tr
+								th Team
+								th Pos
+								th GD
+								th Pts
+							tr
+								td Forestfield United
+								td 1
+								td +25
+								td 56
+							tr
+								td Ashfield
+								td 2
+								td +12
+								td 45
+							tr
+								td Western Knights
+								td 3
+								td +8
+								td 39
+							tr
+								td Gosnells City
+								td 4
+								td +2
+								td 30
 
 block footerIncludes

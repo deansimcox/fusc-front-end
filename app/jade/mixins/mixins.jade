@@ -6,6 +6,14 @@ mixin btn(title, url)
 //- mixin for btn with alt theme
 mixin btn-1(title, url)
 	a(href=url, class="btn btn-theme-1")&attributes(attributes)= title
+
+//- mixin for page titles
+mixin page-head(pageTitle)
+	.page-head
+		.container
+			.page-head_shade
+			h1.page-head_title
+				| #{pageTitle}
 	
 //- mixin for carousel container
 mixin carousel(options)

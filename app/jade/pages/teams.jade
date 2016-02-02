@@ -6,8 +6,25 @@ block primaryNav
 	+navPrimary(5)
 
 block content
-	.container
-		h1.h1 Teams
+	+page-head('Teams')
+
+	.page-contents
+		.container
+			h2 Football West Saturday teams
+			.row
+				.col-sm-4
+					+btn('First team', 'teams-first.html')(class="-block")
+				.col-sm-4
+					+btn('Under 21\'s')(class="-block")
+				.col-sm-4
+					+btn('Under 18\'s')(class="-block")
+			h2 Academy
+			h2 Amateurs
+			h2 Juniors
+			h2 Ladies
+			h2 Social/Vets 
+
+
 
 
 

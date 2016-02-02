@@ -6,8 +6,14 @@ block primaryNav
 	+navPrimary(4)
 
 block content
-	.container
-		h1.h1 Noticeboard
+	+page-head('Noticeboard')
+
+	.page-content
+		.container
+			h2 Event calendar
+			p.calender-embed
+				iframe(style='border: 0;', src='https://www.google.com/calendar/embed?src=219b0i50s8run20369k825gi00%40group.calendar.google.com&ctz=Australia/Perth', width='800', height='600', frameborder='0', scrolling='no')
+
 
 
 

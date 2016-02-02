@@ -87,8 +87,7 @@
 			@include trans;
 		}
 
-		&:hover,
-		&:focus {
+		&:hover {
 			&:before {
 				background: c(main1);
 			}
@@ -245,10 +244,42 @@
 		top: 0;
 		left: 0;
 		height: 100%;
-		width: 35%;
+		width: 42%;
 		padding: 10px 20px;
-		background: rgba(c(black), 0.5);
+		background: rgba(c(black), 0.75);
+		background: linear-gradient(170deg, rgba(c(black), 0.8) 0, rgba(c(black), 0.7) 50%, rgba(c(black), 0) 90%);
 		color: c(white);
+		@include trans(.6s);
+		transition-delay: 1s;
+
+		[aria-hidden="true"] & {
+			opacity: 0;
+			z-index: -1;
+			transform: translateY(-20px);
+		}
+		[aria-hidden="false"] & {
+			opacity: 1;
+			z-index: 10;
+			transform: translateY(0);
+		}
+
+		&-title {
+			@include rem(font-size, 18);
+			line-height: 1.5;
+			margin: 15px 0 30px;
+			padding-bottom: 20px;
+			position: relative;
+
+			&:after {
+				content: ' ';
+				position: absolute;
+				bottom: 5px;
+				left: 0;
+				width: 50%;
+				height: 2px;
+				background: c(main1, x-light);
+			}
+		}
 	}
 }
 

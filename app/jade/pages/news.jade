@@ -6,9 +6,9 @@ block primaryNav
 	+navPrimary(2)
 
 block content
-	.container
-		h1.h1 Latest News
+	+page-head('Latest News')
 
+	.container
 		.news-list
 			//- +newsListItem(title, date, image, url)
 			//- 	p body

@@ -6,17 +6,17 @@ block primaryNav
 	+navPrimary(3)
 
 block content
-	.container
-		h1.h1 Fixtures &amp; Results
+	+page-head('Fixtures & Results')
 
+	.container
 		.fixtures-list
 
-			+resultRow('Sat 12 Nov 2015', '3PM', 'fusc.svg', 'Forrestfield United', '2', '0', 'Ashfield', 'ashfield.png', '')
+			+resultRow('Sat 12 Nov 2015', '3PM', 'fusc.svg', 'Forrestfield United', '2', '0', 'Ashfield', 'ashfield.png', 'javascript:;')
 			
-			+resultRow('Sat 25 Jul 2015', '23:10', 'gcfc.png', 'Gosnells City', '1', '6', 'Forrestfield United', 'fusc.svg', '')
+			+resultRow('Sat 25 Jul 2015', '23:10', 'gcfc.png', 'Gosnells City', '1', '6', 'Forrestfield United', 'fusc.svg', 'javascript:;')
 
 
 			
-			+fixtureRow('Sat 25 Jul 2015', '23:10', 'fusc.svg', 'Forrestfield United', 'Western Knights', 'western-knights.png', '')
+			+fixtureRow('Sat 25 Jul 2015', '23:10', 'fusc.svg', 'Forrestfield United', 'Western Knights', 'western-knights.png', 'javascript:;')
 
 block footerIncludes

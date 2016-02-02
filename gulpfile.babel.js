@@ -29,6 +29,9 @@ const dependencies = {
 		]
 	},
 	copy: {
+		js: [
+			'bower_components/modernizr/modernizr.js'
+		],
 		fonts: [
 			'bower_components/font-awesome/fonts/*'
 		]
@@ -161,9 +164,9 @@ gulp.task('concat:dist', ['serve-pre'], () => {
 
 gulp.task('copy:serve', ['serve-pre'], () => {
 	// copy modernizr to .tmp
-	// gulp.src(dependencies.copy.js)
-	// 	.pipe($.debug())
-	// 	.pipe(gulp.dest('.tmp/scripts'));
+	gulp.src(dependencies.copy.js)
+		.pipe($.debug())
+		.pipe(gulp.dest('.tmp/scripts'));
 
 	// copy font awesome fonts
 	gulp.src(dependencies.copy.fonts)
@@ -176,8 +179,8 @@ gulp.task('copy:serve', ['serve-pre'], () => {
 
 gulp.task('copy:dist', ['serve-pre'], () => {
 	// copy modernizr to .tmp
-	// gulp.src(dependencies.copy.js)
-	// 	.pipe(gulp.dest('dist/scripts'));
+	gulp.src(dependencies.copy.js)
+		.pipe(gulp.dest('dist/scripts'));
 
 	// copy font awesome fonts
 	gulp.src(dependencies.copy.fonts)
@@ -266,7 +269,7 @@ gulp.task('favicon', ['jade'], (done) => {
 		.pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('deploy', ['build'], () => {
+gulp.task('deploy', [], () => {
 	// var conn = ftp.create({
 	// 	host: 'ftp.simcox.me',
 	// 	user: 'asecondm',
@@ -288,7 +291,7 @@ gulp.task('deploy', ['build'], () => {
 			checkRealFile: true,
 			verbose: true
 		}, files))
-		.pipe( conn.newer('/public_html/fusc-templates') ) // only upload newer files
+		// .pipe( conn.newer('/public_html/fusc-templates') ) // only upload newer files
 		.pipe( conn.dest('/public_html/fusc-templates') );
 
 } );
@@ -350,7 +353,7 @@ gulp.task('serve:test', () => {
 });
 
 gulp.task('build', ['lint', 'html', 'styles', 'polyfill', 'concat:dist', 'copy:dist', 'images', 'fonts', 'extras'], () => {
-	return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+	return gulp.src('dist/**/*')/*.pipe($.size({title: 'build', gzip: true}))*/;
 });
 
 gulp.task('default', ['clean'], () => {
