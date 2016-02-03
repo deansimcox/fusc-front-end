@@ -28,7 +28,7 @@ $container-gutter: 15;
 /*
 	Body font familiy
  */
-$ff-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$ff-body: 'Open Sans', sans-serif;
 $ff-heading: 'Patua One', Rockwell, Courier Bold, Georgia, serif;
 $ff-title: 'Squada One', cursive;
 $ff-article: 'Merriweather', serif;
@@ -301,8 +301,19 @@ $z-index: (
 //
 // =============================
 
-@keyframes animation-rotate {
+@keyframes kf-rotate {
 	100% {
 		transform: rotate(360deg);
+	}
+}
+@keyframes kf-scaleX {
+	100% {
+		transform: scaleX(1);
+	}
+}
+@keyframes kf-head-shade {
+	100% {
+		transform: skewX(-45deg) scaleX(1);
+		opacity: 1;
 	}
 }

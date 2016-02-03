@@ -75,7 +75,7 @@ th {
 th {
 	background: c(main1);
 	color: c(grey);
-	border-color: c(grey);
+	border-color: c(main1,x-dark);
 }
 
 
@@ -97,21 +97,21 @@ h2,
 }
 h3,
 .h3 {
-   @include rem(font-size, 26);
-   font-weight: 700;
+	@include rem(font-size, 26);
+	font-weight: 700;
 	@include ff(heading);
 }
 
 h4,
 .h4 {
-   @include rem(font-size, 22);
-   font-weight: 700;
+	@include rem(font-size, 22);
+	font-weight: 700;
 	@include ff(heading);
 }
 h5,
 .h5 {
-   @include rem(font-size, 18);
-   font-weight: 700;
+	@include rem(font-size, 18);
+	font-weight: 700;
 	@include ff(heading);
 }
 
@@ -168,7 +168,7 @@ select {
 .btn {
 	display: inline-block;
 	background: c(main1);
-	border: 1px solid c(main1, dark);
+	border: 2px solid c(main1, dark);
 	color: c(grey);
 	border-radius: 2px;
 	text-decoration: none;
@@ -178,14 +178,17 @@ select {
 	@include rem(font-size, 18);
 	@include rem(padding, 10 20);
 	cursor: pointer;
+	box-shadow: 0 2px 2px transparent;
 	@include trans;
 
 	&:hover,
 	&:focus {
 		color: c(main1);
-		border-color: c(main1, dark);
+		border-color: c(grey);
 		background: c(grey);
 		text-shadow: 0 1px 1px rgba(c(black), 0.5);
+		transform: translateY(-2px);
+		box-shadow: 0 2px 2px rgba(c(black), .25);
 	}
 
 	&-lg {
@@ -215,6 +218,23 @@ select {
 		text-align: center;
 	}
 }
+
+
+
+/*
+	Helper classes
+ */
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
 
 
 /*
@@ -454,6 +474,7 @@ select {
 .primary-nav {
 	background: c(grey);
 	background: linear-gradient(to bottom, c(grey) 0%, c(grey) 50%, darken(c(grey),3%) 50%, c(grey) 100%);
+	font-weight: 100;
 
 	&:focus {
 		outline: none;
@@ -813,8 +834,17 @@ select {
 			bottom: -12px;
 			left: 0;
 			height: 10px;
-			width: 50%;
+			width: 120px;
 			background: c(main1, light);
+		}
+
+		.csstransforms.cssanimations & {
+			&:after {
+				transform: scaleX(0);
+				transform-origin: 0 50%;
+				animation: 1s $cb kf-scaleX forwards;
+				animation-delay: 1s;
+			}
 		}
 	}
 
@@ -834,6 +864,32 @@ select {
 			background: linear-gradient(20deg, rgba(c(black), .08) 0, transparent 95%);
 			transform: skewX(-45deg);
 		}
+	}
+	.cssanimations.csstransforms & {
+		&_shade {
+			transform: skewX(-45deg) scaleX(0);
+			transform-origin: 0 50%;
+			opacity: 0;
+			animation: 1s $cb kf-head-shade forwards;
+			animation-delay: 1s;
+		}
+	}
+
+	@include bp(xs) {
+		&_title {
+			@include rem(font-size, 30);
+
+			&:after {
+				content: ' ';
+				position: absolute;
+				bottom: -12px;
+				left: 0;
+				height: 6px;
+				width: 120px;
+				background: c(main1, light);
+			}
+		}
+
 	}
 }
 
@@ -861,6 +917,7 @@ select {
 		color: c(white);
 		margin: 0;
 		padding: 10px;
+		text-align: center;
 		@include ff(heading);
 		@include rem(font-size, 18px);
 	}
@@ -871,6 +928,7 @@ select {
 		align-items: center;
 
 		&-inner {
+			flex: 1;
 			padding: 10px 15px;
 		}
 	}
@@ -982,13 +1040,21 @@ select {
 
 	&_title {
 		@include rem(font-size, 20);
-		@include ff(body);
-		font-weight: 700;
+		@include ff(heading);
+		font-weight: 300;
 		margin: 10px 0;
 	}
 
 	&_date {
 		color: c(grey, 100);
+		font-weight: 700;
+		margin: 5px 0 15px;
+		@include rem(font-size, 12);
+	}
+
+	&_body {
+		@include rem(font-size, 16);
+		line-height: 1.4;
 	}
 
 	@include bp(sm) {
@@ -1245,6 +1311,7 @@ select {
 
  	&_title {
 		@include rem(font-size, 38);
+		line-height: 1.1;
 		font-weight: 700;
 		@include ff(heading);
 		margin: 25px 0 5px;
@@ -1253,6 +1320,7 @@ select {
 		@include rem(font-size, 18);
 		font-weight: 700;
 		margin: 5px 0 20px;
+		color: c(grey, 100);
  	}
  	&_img {
  		padding: 20px 0;
@@ -1274,6 +1342,12 @@ select {
  	}
  	&_author {
  		font-weight: 900;
+ 	}
+ 	&_body {
+ 		line-height: 1.6;
+ 		p {
+ 			margin: 20px 0;
+ 		}
  	}
 }
 
@@ -1315,7 +1389,7 @@ select {
 			display: block;
 			background: c(white);
 			padding: 15px;
-			max-height: 250px;
+			max-height: 200px;
 		}
 
 		&-img {
@@ -1361,7 +1435,7 @@ select {
 			&-body {
 				flex: 1;
 				display: flex;
-				align-items: middle;
+				align-items: center;
 			}
 		}
 	}
@@ -1400,16 +1474,16 @@ select {
 	home page fixtures
  */
 .fixture-small {
-	display: table;
-	width: 100%;
+	display: flex;
+	align-items: center;
 	text-align: center;
 
 	&_home,
-	&_center,
 	&_away {
-		display: table-cell;
-		vertical-align: middle;
-		width: 50%;
+		flex: 1;
+	}
+	&_center {
+		flex: 0 0 30px;
 	}
 	&_home,
 	&_away {
@@ -1441,16 +1515,142 @@ select {
 
 
 
-/*
-	Helper classes
- */
-.visuallyhidden {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
+
+.team-list {
+	&_title {
+		@include rem(font-size, 22);
+		font-weight: 700;
+		@include ff(heading);
+	}
+	&_players {
+		list-style: none;
+		padding: 0;
+		margin: 15px 0;
+
+		li {
+			margin: 0;
+
+			&:first-child {
+				a {
+					border-radius: 5px 5px 0 0;
+				}
+			}
+			&:last-child {
+				a {
+					border-radius: 0 0 5px 5px;
+				}
+			}
+		}
+
+		a {
+			display: block;
+			padding: 8px 30px 8px 10px;
+			margin: -1px;
+			border: 1px solid c(grey, 200);
+			color: c(grey);
+			text-decoration: none;
+			box-shadow: 0 0 6px transparent;
+			position: relative;
+			@include trans;
+
+			&:after {
+				content: $fa-var-arrow-right;
+				@include fa-icon;
+				color: c(main1, x-dark);
+				position: absolute;
+				right: 15px;
+				top: 50%;
+				margin-top: -7px;
+				opacity: 0;
+				@include trans;
+			}
+
+			&:hover,
+			&:focus {
+				z-index: 1;
+				background: c(main1, light);
+				border-color: c(main1, x-dark);
+				box-shadow: 0 0 6px rgba(c(black), 0.25);
+				transform: scale(1.01);
+
+				&:after {
+					opacity: 1;
+					transform: translateX(5px);
+				}
+			}
+		}
+	}
 }
+
+
+
+
+
+.player-profile {
+	display: table;
+	width: 100%;
+	margin: 50px 0;
+
+	&_name {
+		line-height: 1.1;
+		font-weight: 100;
+		@include rem(font-size, 50);
+		margin: 0 0 40px;
+
+		.shirt-number {
+			font-weight: 700;
+			margin: 0 10px 0 0;
+		}
+	}
+
+	&_img,
+	&_body {
+		display: table-cell;
+		vertical-align: top;
+		height: 100%;
+	}
+
+	&_body {
+		width: 60%;
+		padding: 0 0 0 30px;
+	}
+	&_img {
+		width: 40%;
+		background: 50% 0 no-repeat;
+		background-size: contain;
+		max-width: 400px;
+	}
+	&_img-mob {
+		display: none;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	&_section {
+		margin: 30px 0;
+
+		&-title {
+			line-height: 1.1;
+			font-weight: 700;
+			padding: 0 0 5px;
+			margin: 0 0 10px;
+			border-bottom: 1px solid c(grey, 230);
+		}
+	}
+
+	@include bp(xs) {
+		display: block;
+		&_img-mob,
+		&_body {
+			display: block;
+			width: auto;
+		}
+		&_img {
+			display: none;
+		}
+	}
+}
+

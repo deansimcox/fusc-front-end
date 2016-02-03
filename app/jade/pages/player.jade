@@ -1,0 +1,42 @@
+extends ../layouts/main.jade
+
+block headerIncludes
+
+block primaryNav
+	+navPrimary(5)
+
+block content
+	+page-head('Player')
+
+	.page-contents
+		.container
+			.player-profile
+				.player-profile_img(style="background-image:url(http://www.realmadrid.com/cs/Satellite?blobcol=urldata&blobheader=image%2Fpng&blobkey=id&blobtable=MungoBlobs&blobwhere=1203368063694&ssbinary=true);")
+				.player-profile_body
+					p.player-profile_name
+						span.shirt-number #4
+						span.name-text Sergio Ramos
+					.player-profile_img-mob
+						img(src="http://www.realmadrid.com/cs/Satellite?blobcol=urldata&blobheader=image%2Fpng&blobkey=id&blobtable=MungoBlobs&blobwhere=1203368063694&ssbinary=true", alt="")
+					.player-profile_section
+						p.player-profile_section-title Position
+						.player-profile_section-body
+							p Defender
+					.player-profile_section
+						p.player-profile_section-title Date of birth
+						.player-profile_section-body
+							p 30/03/1986
+					.player-profile_section
+						p.player-profile_section-title Biography
+						.player-profile_section-body
+							p His courage and strength made him the revelation of La Liga in the 2004/2005 season. He was then playing for Sevilla, where he had started his career at the youth academy. His qualities did not go unnoticed by Real Madrid who signed him that summer.
+
+							p Since he arrived at Madrid, Ramos has been one of the key players in defence and has played both as a central defender and as a right-back. He has always led by example in terms of hard work, commitment and ambition and has been chosen as the captain of the team. His defensive abilities are complemented by his speed, his powerful shooting and his goalscoring instincts.
+ 
+							p His reliability in defence has made him a regular for Spain for whom he made his international debut at just 19. He was an important part of the Spanish team that won the FIFA World CUP in 2010 and the UEFA European Championship in 2008 and 2012.
+
+
+
+
+
+block footerIncludes
