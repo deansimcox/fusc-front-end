@@ -28,9 +28,9 @@ block content
 		
 		.pod-row
 			.pod
-				p.pod_title Previous Match
 				.pod_body
 					.pod_body-inner
+						p.pod_title Previous Match
 						.fixture-small
 							.fixture-small_home
 								.fixture-small_home-crest
@@ -41,13 +41,12 @@ block content
 								.fixture-small_away-crest
 									img(src="images/logo/gcfc.png", alt="")
 								p.fixture-small_away-name Gosnells City
-						p
-							+btn("Match report")(class="-block")
+						+btn("Match report")(class="-block")
 
 			.pod
-				p.pod_title Next Match
 				.pod_body
 					.pod_body-inner
+						p.pod_title Next Match
 						.fixture-small
 							.fixture-small_home
 								.fixture-small_home-crest
@@ -58,13 +57,12 @@ block content
 								.fixture-small_away-crest
 									img(src="images/logo/fusc.svg", alt="")
 								p.fixture-small_away-name Forrestfield United
-						p
-							+btn("Match preview")(class="-block")
+						+btn("Match preview")(class="-block")
 
 			.pod
-				p.pod_title League Table
 				.pod_body
 					.pod_body-inner
+						p.pod_title League Table
 						table
 							tr
 								th Team
@@ -91,5 +89,6 @@ block content
 								td 4
 								td +2
 								td 30
+						+btn("View full table")(class="-block")
 
 block footerIncludes

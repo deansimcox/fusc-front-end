@@ -10,11 +10,15 @@
 
 // app styles
 @import 'config-utilities';
+@import 'helpers';
 @import 'grids';
 @import 'carousels';
 @import 'modals';
 @import 'base';
 
 
+
+// wordpress styles
+@import 'wp';
 
 

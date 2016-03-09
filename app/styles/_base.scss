@@ -47,13 +47,13 @@ ul {
 }
 
 a {
-	color: c(main1);
+	color: c(main2, x-dark);
 	text-decoration: underline;
 
 	&:hover,
 	&:focus {
 		text-decoration: none;
-		color: c(main1);
+		color: c(main1, x-dark);
 	}
 	img {
 		border: none;
@@ -175,7 +175,7 @@ select {
 	text-transform: uppercase;
 	text-shadow: 0 1px 1px rgba(c(white), 0.5);
 	font-weight: 700;
-	@include rem(font-size, 18);
+	@include rem(font-size, 17);
 	@include rem(padding, 10 20);
 	cursor: pointer;
 	box-shadow: 0 2px 2px transparent;
@@ -184,11 +184,15 @@ select {
 	&:hover,
 	&:focus {
 		color: c(main1);
-		border-color: c(grey);
+		border-color: c(main1, dark);
 		background: c(grey);
 		text-shadow: 0 1px 1px rgba(c(black), 0.5);
 		transform: translateY(-2px);
 		box-shadow: 0 2px 2px rgba(c(black), .25);
+
+		.fa-arrow-right {
+			transform: translateX(5px);
+		}
 	}
 
 	&-lg {
@@ -216,6 +220,12 @@ select {
 	&.-block {
 		display: block;
 		text-align: center;
+	}
+
+	.fa-arrow-right {
+		vertical-align: middle;
+		margin: 0 0 0 8px;
+		@include trans-p;
 	}
 }
 
@@ -632,7 +642,8 @@ select {
 					justify-content: center;
 				}
 			}
-			> .active {
+			> .active,
+			> .current_page_item {
 				> a {
 					background: c(main1);
 					color: c(black);
@@ -790,6 +801,10 @@ select {
 			opacity: 0.7;
 		}
 	}
+
+	a {
+		text-decoration: none;
+	}
 }
 
 
@@ -822,7 +837,7 @@ select {
 		display: inline-block;
 		@include rem(font-size, 50);
 		@include ff(heading);
-		text-transform: uppercase;
+		// text-transform: uppercase;
 		line-height: 1.1;
 		position: relative;
 		color: c(black);
@@ -917,24 +932,30 @@ select {
 		color: c(white);
 		margin: 0;
 		padding: 10px;
+		margin: -15px -15px 15px;
 		text-align: center;
 		@include ff(heading);
 		@include rem(font-size, 18px);
+		border-bottom: 4px solid c(main1, dark);
 	}
 
 	&_body {
 		flex: 1;
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 
 		&-inner {
 			flex: 1;
-			padding: 10px 15px;
+			padding: 15px;
 		}
 	}
 
 	+ .pod {
 		margin-left: 20px;
+	}
+
+	.sp-template {
+		margin: 0;
 	}
 }
 
@@ -981,9 +1002,9 @@ select {
 		background-color: c(grey, 245);
 	}
 
-	&:hover{
+	&:hover {
+		background: linear-gradient(180deg, #ffec38 0%, c(main1) 100%);
 		background-color: c(main1);
-		background-position: 15px 15px;
 		color: c(grey, 30);
 		box-shadow: 0 0 4px 0px rgba(c(black), 0.3);
 		border-color: c(main1, dark);
@@ -994,11 +1015,13 @@ select {
 			display: none;
 		}
 		.news-item_img-container {
+			background-size: 80px 76px;
 			&:after {
 				box-shadow: inset 0 0 0 10px rgba(c(black), 0.25);
 			}
 		}
-		.news-item_img {
+		.news-item_img,
+		.news-item_img-none {
 			transform: scale(1.05);
 		}
 		.news-item_date {
@@ -1006,12 +1029,16 @@ select {
 		}
 	}
 
+	&:focus {
+		color: c(grey, 30);
+	}
+
 	&_img-container {
 		background-color: c(grey);
 		width: 320px;
-		height: 200px;
 		position: relative;
 		overflow: hidden;
+		transition: 0.3s background $cb;
 
 		&:after {
 			content: ' ';
@@ -1026,7 +1053,8 @@ select {
 		}
 	}
 
-	&_img {
+	&_img,
+	&_img-none {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -1036,6 +1064,10 @@ select {
 		background-position: 50% 0;
 		background-size: cover;
 		@include trans;
+	}
+	&_img-none {
+		background: url('../images/logo-fusc-white.svg') no-repeat center center;
+		background-size: 70px 66px;
 	}
 
 	&_title {
@@ -1170,6 +1202,8 @@ select {
 			img {
 				max-width: 50px;
 				max-height: 50px;
+				height: auto;
+				width: auto;
 			}
 		}
 
@@ -1336,8 +1370,12 @@ select {
  		}
 
  		img {
- 			width: 100%;
- 			height: auto;
+			width: auto;
+			height: auto;
+			max-height: 600px;
+			max-width: 100%;
+			margin: auto;
+			display: block;
  		}
  	}
  	&_author {
@@ -1654,3 +1692,24 @@ select {
 	}
 }
 
+
+
+/*
+	WP Stuff
+ */
+.excerpt-more {
+	@include rem(font-size, 14);
+	font-weight: 700;
+
+	.fa {
+		@include rem(font-size, 20);
+		margin: -4px 0 0 6px;
+		vertical-align: middle;
+		@include trans-p;
+
+		.news-item:hover &,
+		.news-item:focus & {
+			transform: translateX(5px);
+		}
+	}
+}

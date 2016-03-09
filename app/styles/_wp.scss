@@ -1,0 +1,108 @@
+/*
+	Wordpress specific styles
+ */
+
+.sp-event-logos {
+	display: flex;
+	align-items: center;
+}
+	.sp-event-logos a {
+		text-decoration: none;
+	}
+	.sp-event-logos img {
+		display: inline-block !important;
+		vertical-align: middle;
+	}
+
+.sp-event-logos .sp-team-logo {
+	flex: 1;
+	text-align: right;
+	height: 120px;
+}
+	.sp-event-logos .sp-team-logo img {
+		height: 120px;
+		width: auto;
+	}
+
+.sp-event-delimiter {
+	flex: 0 0 50px;
+	font-size: 20px;
+}
+	.sp-event-delimiter + .sp-team-logo {
+		text-align: left;
+	} 
+
+
+
+@media screen and (min-width: 601px) {
+	.sp-event-logos .sp-team-logo,
+	.sp-event-logos-2 .sp-team-logo {
+		display: block;
+	}
+
+	.sp-event-logos-2 .sp-team-logo .sp-team-result {
+		display: inline-block;
+		margin: 0 0.25em;
+	}
+}
+
+
+.single-table {
+	margin: 20px 0;
+}
+.sp-league-table td {
+	text-align: center;
+}
+.sp-data-table .data-name {
+	text-align: left;
+}
+
+
+.excerpt-more {
+	display: inline-block;
+	padding: 8px 12px;
+	margin: 14px 0 0;
+	background: transparent;
+	border-radius: 2px;
+	transition: .3s background $cb;
+}
+
+.news-item {
+	&:hover {
+		.excerpt-more {
+			background: c(main1, dark);
+		}
+	}
+}
+
+
+
+.wp-pagenavi {
+	margin: 50px 0 15px;
+	padding: 20px 0 0;
+	border-top: 1px solid c(grey,230);
+	text-align: right;
+
+	a,
+	span {
+		display: inline-block;
+		text-decoration: none;
+		border: 1px solid c(grey, 200);
+		border-radius: 2px;
+		background: c(white);
+		padding: 5px 11px;
+		margin: 2px;
+	}
+	a {
+		color: c(grey);
+		border: 1px solid c(grey, 200);
+		background: c(grey, 230);
+		@include trans;
+	}
+	a:hover,
+	a:focus {
+		color: c(grey, 30);
+		border: 1px solid c(main1, dark);
+		background: c(main1);
+	}
+}

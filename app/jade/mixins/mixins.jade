@@ -26,7 +26,8 @@ mixin carousel(options)
 
 //- mixin for carousel slide
 mixin carousel-slide(imageURL)
-	div(class="carousel-slide", style="background-image: url(#{imageURL})")&attributes(attributes)
+	div(class="carousel-slide")&attributes(attributes)
+		div(class="carousel-slide_image", style="background-image: url(#{imageURL})")
 		if block
 			div(class="carousel-slide-caption")
 				block

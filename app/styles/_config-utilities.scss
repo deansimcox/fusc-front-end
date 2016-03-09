@@ -220,6 +220,9 @@ $z-index: (
 @mixin trans( $time: .3s, $property: all, $easing: $cb){
 	transition: $time $property $easing;
 }
+@mixin trans-p( $time: .3s, $property: transform, $easing: $cb){
+	transition: $time $property $easing;
+}
 
 
 /*

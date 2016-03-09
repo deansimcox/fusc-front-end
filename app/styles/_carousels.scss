@@ -32,6 +32,7 @@
 	bottom: 0;
 	width: 100%;
 	padding: 5px;
+	z-index: 50;
 }
 
 .bx-loading {
@@ -58,76 +59,147 @@
 
 .bx-pager {
 	text-align: center;
+	padding: 0;
+	display: table;
+	table-layout: fixed;
 
 	&-item {
+		display: table-cell;
+		vertical-align: top;
+
+		+ .bx-pager-item {
+			border-left: 1px solid c(grey, 40);
+		}
 	}
 
 	&-link {
-		height: 25px;
-		width: 25px;
+		display: block;
+		height: 30px;
+		width: auto;
 		padding: 6px;
-		background: transparent;
-		border: 0 solid transparent;
+		background: rgba(c(white), .1);
+		// border: 2px solid transparent;
+		@include trans;
 		position: relative;
-		white-space: nowrap;
-		text-indent: 200%;
-		overflow: hidden;
+
+		text-align: center;
+		text-decoration: none;
+		color: c(main1);
 
 		&:before {
 			content: ' ';
-			height: 12px;
-			width: 12px;
-			border-radius: 50%;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin: -6px 0 0 -6px;
-			background: c(white);
-			box-shadow: 0 0 0 2px rgba(c(black), 0);
+			border: 10px solid transparent;
+			border-width: 0 14px 10px 14px;
+			// transform: translateY(3px);
 			@include trans;
+			position: absolute;
+			top: -10px;
+			left: 50%;
+			margin: 0 0 0 -14px;
 		}
 
 		&:hover {
+			background: c(grey, 100);
+
 			&:before {
-				background: c(main1);
 			}
 		}
 		&.active {
+			background: c(main1, dark);
+			color: c(grey, 30);
+			font-weight: 700;
+
 			&:before {
-				background: c(main1, dark);
-				box-shadow: 0 0 0 2px rgba(c(black), 0.8);
+				border-bottom-color: c(main1, dark);
 			}
 		}
+
 	}
+
 }
 
 .bx-prev {
-	left: 10px;
-	background: url('images/controls.png') no-repeat 0 -32px;
+	left: 400px;
+
+	&:before {
+		background: linear-gradient(90deg, rgba(c(black), .4) 0, transparent 100%);
+	}
+	&:after {
+		content: $fa-var-angle-left;
+	}
+
 	&:hover,
 	&:focus {
-		background-position: 0 0;
+		&:after {
+			transform: translateX(-4px);
+		}
 	}
 }
 
 .bx-next {
-	right: 10px;
-	background: url('images/controls.png') no-repeat -43px -32px;
+	right: 0;
+
+	&:before {
+		background: linear-gradient(270deg, rgba(c(black), .4) 0, transparent 100%);
+	}
+	&:after {
+		content: $fa-var-angle-right;
+	}
 	&:hover,
 	&:focus {
-		background-position: -43px 0;
+		&:after {
+			transform: translateX(4px);
+		}
 	}
 }
 
 .bx-controls-direction a {
 	position: absolute;
-	top: 50%;
-	margin-top: -16px;
+	top: 0;
+	bottom: 0;
 	outline: 0;
-	width: 32px;
-	height: 32px;
-	text-indent: -9999px;
-	z-index: 9999;
+	width: 100px;
+	text-indent: 200%;
+	white-space: nowrap;
+	z-index: 10;
+
+	&:before,
+	&:after {
+		position: absolute;
+		@include trans;
+	}
+	&:before {
+		content: ' ';
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		opacity: 0;
+	}
+	&:after {
+		@include fa-icon;
+		@include rem(font-size, 50);
+		color: c(white);
+		opacity: .4;
+		top: 50%;
+		left: 50%;
+		margin: -25px 0 0 -9px;
+		text-indent: 0;
+		text-shadow: 0 1px #000;
+	}
+
+	&:hover,
+	&:focus {
+		&:after {
+			opacity: 1;
+		}
+	}
+	&:hover {
+		&:before {
+			opacity: 1;
+		}
+	}
+
 	.disabled {
 		display: none;
 	}
@@ -187,7 +259,7 @@
 .bx-controls.bx-has-controls-auto.bx-has-pager {
 	.bx-pager {
 		text-align: left;
-		width: 80%;
+		width: 400px;
 	}
 	.bx-controls-auto {
 		right: 0;
@@ -216,24 +288,17 @@
 	Custom carousel styles
  */
 .carousel-container {
-	white-space: nowrap;
 
 	&-wrap {
 		margin: 20px auto;
 		position: relative;
 		box-shadow: 0 5px 20px -5px c(grey);
 	}
-
-	.bx-wrapper & {
-		white-space: normal;
-	}
 }
 
 .carousel-slide {
 	height: 400px;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+	background-color: c(grey);
 	display: inline-block;
 	vertical-align: top;
 	width: 100%;
@@ -244,10 +309,10 @@
 		top: 0;
 		left: 0;
 		height: 100%;
-		width: 42%;
+		width: 400px;
 		padding: 10px 20px;
-		background: rgba(c(black), 0.75);
-		background: linear-gradient(170deg, rgba(c(black), 0.8) 0, rgba(c(black), 0.7) 50%, rgba(c(black), 0) 90%);
+		background: c(grey);
+		background-image: linear-gradient(170deg, rgba(c(main1), .15) 0, rgba(c(black), 0.1) 30%, rgba(c(black), 0) 90%);
 		color: c(white);
 		@include trans(.6s);
 		transition-delay: 1s;
@@ -281,46 +346,58 @@
 			}
 		}
 	}
-}
-
-
-
-.bx-loading-el-wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 100;
-	background: rgba(c(grey,30), 0.75);
-}
-.bx-loading-el,
-.bx-loading-el::before,
-.bx-loading-el::after {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	border: 3px solid rgba(c(main1), 0.4);
-	border-left-color: rgba(c(main1), 0.9);
-	border-radius: 999px;
-}
-.bx-loading-el {
-	margin: -25px 0 0 -25px;
-	height: 50px;
-	width: 50px;
-	animation: kf-rotate 1000ms linear infinite;
-	&:before {
-		content: ' ';
-		margin: -20px 0 0 -20px;
-		height: 40px;
-		width: 40px;
-		animation: kf-rotate 1500ms linear infinite;
-	}
-	&:after {
-		content: ' ';
-		margin: -30px 0 0 -30px;
-		height: 60px;
-		width: 60px;
-		animation: kf-rotate 2000ms linear infinite;
+	&_image {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 400px;
+		height: 100%;
+		background-color: c(grey, 235);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		box-shadow: inset 0 0 10px rgba(c(black), 0.8);
 	}
 }
+
+
+
+// .bx-loading-el-wrap {
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	height: 100%;
+// 	width: 100%;
+// 	z-index: 100;
+// 	background: rgba(c(grey,30), 0.75);
+// }
+// .bx-loading-el,
+// .bx-loading-el::before,
+// .bx-loading-el::after {
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	border: 3px solid rgba(c(main1), 0.4);
+// 	border-left-color: rgba(c(main1), 0.9);
+// 	border-radius: 999px;
+// }
+// .bx-loading-el {
+// 	margin: -25px 0 0 -25px;
+// 	height: 50px;
+// 	width: 50px;
+// 	animation: kf-rotate 1000ms linear infinite;
+// 	&:before {
+// 		content: ' ';
+// 		margin: -20px 0 0 -20px;
+// 		height: 40px;
+// 		width: 40px;
+// 		animation: kf-rotate 1500ms linear infinite;
+// 	}
+// 	&:after {
+// 		content: ' ';
+// 		margin: -30px 0 0 -30px;
+// 		height: 60px;
+// 		width: 60px;
+// 		animation: kf-rotate 2000ms linear infinite;
+// 	}
+// }

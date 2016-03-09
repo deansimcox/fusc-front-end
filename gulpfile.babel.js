@@ -18,7 +18,7 @@ const dependencies = {
 	concat: {
 		js: [
 			'bower_components/jquery/dist/jquery.js',
-			'bower_components/bxslider-4/dist/jquery.bxslider.js',
+			'app/scripts/patched_jquery.bxslider.js',
 			'bower_components/gsap/src/uncompressed/TweenMax.js',
 			'bower_components/enquire/dist/enquire.js',
 			'bower_components/vex/js/vex.js',
@@ -94,7 +94,7 @@ gulp.task('html', ['jade', 'styles'], () => {
 		// .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
 		.pipe(assets.restore())
 		.pipe($.useref())
-		.pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+		// .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
 		.pipe(gulp.dest('dist'));
 });
 
@@ -201,6 +201,12 @@ gulp.task('copy:dist', ['serve-pre'], () => {
 	// copy favicon stuff to root of dist
 	gulp.src('app/content/**.*')
 		.pipe(gulp.dest('dist/content'));
+});
+
+gulp.task('copy:wp', ['build'], () => {
+	// copy modernizr to .tmp
+	gulp.src('dist/**/*')
+		.pipe(gulp.dest('../fusc-wp-theme'));
 });
 
 gulp.task('polyfill', function () {
@@ -354,6 +360,18 @@ gulp.task('serve:test', () => {
 
 gulp.task('build', ['lint', 'html', 'styles', 'polyfill', 'concat:dist', 'copy:dist', 'images', 'fonts', 'extras'], () => {
 	return gulp.src('dist/**/*')/*.pipe($.size({title: 'build', gzip: true}))*/;
+});
+
+gulp.task('wp-styles', ['styles'], () => {
+	return gulp.src(['.tmp/styles/*.*', '!.tmp/styles/vendor-concat.css'])
+		.pipe(gulp.dest('../fusc-wp-theme/styles'));
+});
+gulp.task('wp-watch', ['styles'], () => {
+	gulp.watch('app/styles/**/*.scss', ['styles']);
+	gulp.watch('.tmp/styles/*.css', function () {
+		return gulp.src(['.tmp/styles/*.*', '!.tmp/styles/vendor-concat.css'])
+			.pipe(gulp.dest('../fusc-wp-theme/styles'));
+	});
 });
 
 gulp.task('default', ['clean'], () => {
