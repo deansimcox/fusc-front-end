@@ -259,6 +259,10 @@ select {
 		padding-right: 0;
 		padding-left: 0;
 	}
+	&.single-table {
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 .page-viewport {
@@ -747,8 +751,20 @@ select {
 		margin: 0 0 20px;
 		text-align: center;
 
+		a {
+			display: inline-block;
+			box-shadow: inset 0 0 0 2px transparent;
+			@include trans;
+
+			&:hover,
+			&:focus {
+				background: rgba(c(black), .02);
+				box-shadow: inset 0 0 0 2px rgba(c(black), 0.1);
+			}
+		}
+
 		img {
-			margin: 0 20px 15px;
+			margin: 7px 10px;
 			filter: grayscale(1);
 			cursor: pointer;
 			@include trans;
@@ -775,7 +791,7 @@ select {
 
 	&_logo-wrap {
 		position: relative;
-		margin: 0 0 20px;
+		margin: 40px 0;
 
 		&:before {
 			content: ' ';
@@ -918,6 +934,10 @@ select {
 	display: flex;
 	justify-content: space-between;
 	align-items: stretch;
+
+	@include bp(xs) {
+		display: block;
+	}
 }
 
 .pod {
@@ -956,6 +976,13 @@ select {
 
 	.sp-template {
 		margin: 0;
+	}
+
+	@include bp(xs) {
+		display: block;
+		+ .pod {
+			margin-left: 0;
+		}
 	}
 }
 
@@ -1427,7 +1454,7 @@ select {
 			display: block;
 			background: c(white);
 			padding: 15px;
-			max-height: 200px;
+			// max-height: 200px;
 		}
 
 		&-img {
